@@ -21,6 +21,6 @@ class AboutController extends Controller
             ->with('facilityItems')
             ->get();
 
-        return view('frontend.about', compact('pageTitle', 'about', 'facilities'));
+        return view('frontend.pengunjung.about', compact('pageTitle', 'about', 'facilities'));
     }
 }

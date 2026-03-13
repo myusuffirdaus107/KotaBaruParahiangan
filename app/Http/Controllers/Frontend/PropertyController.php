@@ -15,25 +15,25 @@ class PropertyController extends Controller
     {
         $category = Category::where('slug', $slug)->firstOrFail();
         
-        $query = Property::where('category_id', $category->id)->available();
+        $property = Property::where('category_id', $category->id)->available();
 
         // Filter by price
         if (request('min_price')) {
-            $query->where('price', '>=', request('min_price'));
+            $property->where('price', '>=', request('min_price'));
         }
         if (request('max_price')) {
-            $query->where('price', '<=', request('max_price'));
+            $property->where('price', '<=', request('max_price'));
         }
 
         // Filter by location
         if (request('location')) {
-            $query->where('location', 'like', '%' . request('location') . '%');
+            $property->where('location', 'like', '%' . request('location') . '%');
         }
 
-        $properties = $query->paginate(12);
+        $properties = $property->paginate(12);
 
         // Use different views for hunian and business
-        $view = ($slug === 'hunian') ? 'frontend.properties.hunian' : 'frontend.properties.business';
+        $view = ($slug === 'hunian') ? 'frontend.pengunjung.hunian' : 'frontend.pengunjung.business';
 
         return view($view, compact('category', 'properties'));
     }

@@ -13,10 +13,10 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::active()->get();
-        $launchings = Launching::active()->latest()->limit(3)->get();
+        $launchings = Launching::active()->latest()->get();
         $featuredProperties = Property::available()->featured()->latest()->limit(6)->get();
 
-        return view('frontend.home', compact('sliders', 'launchings', 'featuredProperties'));
+        return view('frontend.pengunjung.home', compact('sliders', 'launchings', 'featuredProperties'));
     }
 
     public function kawasan()
@@ -32,7 +32,7 @@ class HomeController extends Controller
 
     public function kontak()
     {
-        return view('frontend.kontak');
+        return view('frontend.pengunjung.kontak');
     }
 
     public function brochure()

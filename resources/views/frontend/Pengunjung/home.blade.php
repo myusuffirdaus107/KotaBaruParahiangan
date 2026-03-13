@@ -939,7 +939,7 @@
 @endsection
 
 @section('content')
-{{-- Hero Slider - Full Width --}}
+{{-- Slide Home --}}
 <div class="hero-banner-section">
     <div class="hero-swiper swiper">
         <div class="swiper-wrapper">
@@ -975,26 +975,10 @@
 </div>
 
 {{-- Launching Section --}}
-@if($launchings->count() > 0)
-    @php $featured = $launchings->first(); @endphp
+    @if($launchings->count() > 0)
+        @php $featured = $launchings->first(); @endphp
 
-    <!-- Header Section - Full Width -->
-    <div style="background: linear-gradient(135deg, #d4c5b0 0%, #c8b5a0 100%); padding: 15px 30px 35px 30px; text-align: center; width: 100%; margin: 0; margin-bottom: 0;">
-        <p style="color: #9a8a7a; font-size: 0.70rem; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 8px 0; font-weight: 700;">New Launching</p>
-        <h2 style="color: #7a6a5a; font-size: 2.4rem; margin: 0; font-weight: 900; letter-spacing: 0.8px;">{{ $featured->title }}</h2>
-    </div>
-
-    <!-- Featured Image Gallery Section - Full Width -->
-    <div style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-bottom: 40px; background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);">
-        @if($featured->image)
-            <img src="{{ Storage::url($featured->image) }}" alt="{{ $featured->title }}"
-                 style="width: 100%; height: auto; display: block;">
-        @else
-            <div style="width: 100%; height: 500px; background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%); display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-image" style="font-size: 100px; color: rgba(0,0,0,0.1);"></i>
-            </div>
-        @endif
-    </div>
+    
 
     <div class="container-lg">
 
@@ -1004,7 +988,7 @@
             <!-- Left Side - Image with Curved Edge -->
             <div style="position: relative; height: 100%; overflow: hidden; background: linear-gradient(135deg, #2a6ba8 0%, #1f5a8f 100%);">
                 @if($featured->image)
-                    <img src="{{ Storage::url($featured->image) }}" alt="{{ $featured->title }}"
+                    <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1400&h=600&fit=crop" alt="{{ $featured->title }}"
                          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;">
                 @else
                     <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
@@ -1094,7 +1078,7 @@
             <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
                 @if($featured->image)
                     <div style="position: relative; height: 300px; overflow: hidden;">
-                        <img src="{{ Storage::url($featured->image) }}" alt="{{ $featured->title }}"
+                        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1400&h=600&fit=crop" alt="{{ $featured->title }}"
                              style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 @endif
@@ -1138,7 +1122,7 @@
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                @foreach($launchings->skip(1)->take(3) as $launching)
+                @foreach($launchings as $launching)
                 <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08);" class="launching-other-card">
                     <div style="position: relative; height: 220px; background: #d4c5b0; overflow: hidden;">
                         @if($launching->image)
@@ -1391,5 +1375,3 @@
 </div>
 
 @endsection
-
-

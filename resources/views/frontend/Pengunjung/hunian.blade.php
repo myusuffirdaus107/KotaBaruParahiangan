@@ -124,7 +124,7 @@
                     @endif
                 </div>
                 <div class="hunian-content">
-                    <h2>TATAR {{ strtoupper($property->title) }}</h2>
+                    <h2>{{ strtoupper($property->title) }}</h2>
                     <p>{{ $property->description ?? $property->title }}</p>
                     <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20dengan%20{{ urlencode($property->title) }}" target="_blank" class="hunian-cta">
                         <i class="fab fa-whatsapp"></i>
