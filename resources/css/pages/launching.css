@@ -1,0 +1,577 @@
+/* HERO */
+.lc-hero {
+    position: relative;
+    min-height: 65vh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    border-end-end-radius: 100px;
+}
+.lc-hero-bg {
+    position: absolute;
+    inset: 0;
+}
+.lc-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.52) saturate(0.8);
+}
+.lc-hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            to top,
+            rgba(13, 31, 60, 0.97) 0%,
+            rgba(13, 31, 60, 0.45) 50%,
+            transparent 85%
+        ),
+        linear-gradient(to right, rgba(13, 31, 60, 0.55) 0%, transparent 55%);
+}
+.lc-hero-body {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 80px 64px 72px;
+}
+.lc-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue2);
+    background: rgba(37, 150, 190, 0.12);
+    border: 1px solid rgba(37, 150, 190, 0.3);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+}
+.lc-hero-body h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 18px;
+}
+.lc-hero-body h1 em {
+    color: var(--blue2);
+    font-style: italic;
+}
+.lc-hero-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.85;
+    max-width: 420px;
+}
+
+/* FILTER BAR */
+.lc-filter {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 64px;
+    display: flex;
+    gap: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.lc-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "Outfit", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition:
+        color 0.2s,
+        border-color 0.2s;
+}
+.lc-filter-btn:hover {
+    color: var(--blue);
+}
+.lc-filter-btn.active {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+}
+.lc-filter-btn .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.lc-filter-btn.active .dot,
+.lc-filter-btn[data-filter="all"] .dot {
+    background: var(--blue);
+}
+.lc-filter-btn[data-filter="active"] .dot {
+    background: #22c55e;
+}
+.lc-filter-btn[data-filter="coming_soon"] .dot {
+    background: #f59e0b;
+}
+
+/* GRID & CARDS */
+.lc-section {
+    background: var(--bg);
+    padding: 72px 0 88px;
+}
+.lc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.lc-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s,
+        border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+.lc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 52px rgba(13, 31, 60, 0.13);
+    border-color: rgba(26, 111, 168, 0.3);
+}
+.lc-card-img {
+    position: relative;
+    height: 210px;
+    overflow: hidden;
+    background: #d0d8e8;
+}
+.lc-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s;
+}
+.lc-card:hover .lc-card-img img {
+    transform: scale(1.07);
+}
+.lc-card-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(13, 31, 60, 0.5) 100%
+    );
+}
+.lc-pill {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.lc-pill.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+.lc-pill.coming {
+    background: #fef9c3;
+    color: #92400e;
+}
+.lc-date-chip {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 2;
+    background: rgba(13, 31, 60, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 5px 11px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.lc-card-body {
+    padding: 20px 22px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.lc-card-body h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin: 0;
+}
+.lc-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: auto;
+}
+.lc-card-meta span {
+    font-size: 0.76rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.lc-card-meta span i {
+    color: var(--blue);
+    font-size: 0.65rem;
+    width: 12px;
+}
+.lc-card-footer {
+    border-top: 1px solid var(--border);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.lc-card-footer .see-more {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.lc-card-footer .dev {
+    font-size: 0.7rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.lc-empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 80px 24px;
+    color: var(--muted);
+}
+.lc-empty i {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 14px;
+    opacity: 0.3;
+}
+
+/* MODAL */
+.lc-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background: rgba(8, 16, 36, 0.75);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.3s,
+        visibility 0.3s;
+}
+.lc-modal-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+}
+.lc-modal {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 780px;
+    max-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35);
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.35s;
+}
+.lc-modal-backdrop.open .lc-modal {
+    transform: none;
+}
+.lc-modal-img {
+    position: relative;
+    overflow: hidden;
+    background: #d0d8e8;
+    min-height: 440px;
+}
+.lc-modal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.lc-modal-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        to top,
+        rgba(13, 31, 60, 0.8) 0%,
+        transparent 50%
+    );
+}
+.lc-modal-img-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 2;
+}
+.lc-modal-img-info .mi-pill {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.mi-pill.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+.mi-pill.coming {
+    background: #fef9c3;
+    color: #92400e;
+}
+.lc-modal-img-info h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+}
+.lc-modal-body {
+    padding: 32px 28px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.lc-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s;
+}
+.lc-modal-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+.lc-modal-section-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+}
+.lc-modal-section-val {
+    font-size: 0.9rem;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.5;
+}
+.lc-modal-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.85;
+}
+.lc-modal-divider {
+    height: 1px;
+    background: var(--border);
+}
+.lc-modal-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.lc-modal-wa {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    padding: 13px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    transition:
+        background 0.2s,
+        transform 0.2s;
+    justify-content: center;
+}
+.lc-modal-wa:hover {
+    background: #1cb85a;
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+/* CTA */
+.lc-cta {
+    background: var(--navy);
+    padding: 88px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.lc-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse 60% 60% at 50% 110%,
+        rgba(26, 111, 168, 0.28) 0%,
+        transparent 70%
+    );
+}
+.lc-cta h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+.lc-cta h2 span {
+    color: var(--blue2);
+}
+.lc-cta p {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 36px;
+    position: relative;
+    z-index: 1;
+}
+.btn-wa-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 14px 30px;
+    border-radius: 100px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+    transition: all 0.2s;
+    position: relative;
+    z-index: 2;
+}
+.btn-wa-cta:hover {
+    background: #1cb85a;
+    transform: translateY(-2px);
+    color: #fff;
+}
+.btn-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 13px 26px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 2;
+}
+.btn-nav:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .lc-hero-body {
+        padding: 60px 24px 48px;
+    }
+    .lc-filter {
+        padding: 0 24px;
+        overflow-x: auto;
+    }
+    .lc-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .lc-modal {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+    }
+    .lc-modal-img {
+        min-height: 260px;
+    }
+}
+@media (max-width: 560px) {
+    .lc-grid {
+        grid-template-columns: 1fr;
+    }
+    .lc-modal-info-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -69,14 +69,14 @@
                 <td>{{ $property->category->name ?? '-' }}</td>
                 <td>{{ substr($property->location, 0, 30) }}...</td>
                 <td>
-                    @if($property->is_featured)
+                    @if($property->featured)
                         <span class="badge bg-success">Ya</span>
                     @else
                         <span class="badge bg-secondary">Tidak</span>
                     @endif
                 </td>
                 <td>
-                    @if($property->is_available)
+                    @if($property->available)
                         <span class="badge bg-success">Ya</span>
                     @else
                         <span class="badge bg-danger">Tidak</span>

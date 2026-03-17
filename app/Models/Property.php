@@ -24,7 +24,7 @@ class Property extends Model
 
     protected $casts = [
         'featured' => 'boolean',
-        'price' => 'integer',
+        'price'    => 'integer',
     ];
 
     /**
@@ -52,18 +52,20 @@ class Property extends Model
     }
 
     /**
-     * Scope to get featured properties.
-     */
-    public function scopeFeatured($query)
-    {
-        return $query->where('featured', true);
-    }
-
-    /**
-     * Scope to get available properties.
+     * Scope: properti yang statusnya available.
+     * Menggunakan kolom 'status' sesuai migration.
      */
     public function scopeAvailable($query)
     {
         return $query->where('status', 'available');
+    }
+
+    /**
+     * Scope: properti yang ditandai featured.
+     * Menggunakan kolom 'featured' sesuai migration.
+     */
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured', true);
     }
 }

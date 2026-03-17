@@ -1,232 +1,153 @@
 @extends('frontend.layouts.app')
-
 @section('title', 'Kawasan - Properti Kotabaru')
 
-@section('styles')
-<style>
-    .page-header {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        color: white;
-        padding: 60px 30px;
-        margin-bottom: 50px;
-        border-radius: 10px;
-    }
-    
-    .page-header h1 {
-        color: white;
-        font-size: 2.8rem;
-        margin-bottom: 10px;
-    }
-    
-    .page-header p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-    }
-    
-    .content-section {
-        margin-bottom: 60px;
-    }
-    
-    .content-section h2 {
-        margin-bottom: 30px;
-        font-size: 2rem;
-        color: var(--dark-color);
-    }
-    
-    .info-card {
-        background: white;
-        border-radius: 12px;
-        padding: 30px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        border-left: 4px solid var(--accent-color);
-        transition: all 0.3s ease;
-    }
-    
-    .info-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
-    
-    .info-card h3 {
-        color: var(--primary-color);
-        margin-bottom: 15px;
-    }
-    
-    .info-card p {
-        color: #6b7280;
-        line-height: 1.8;
-    }
-    
-    .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        margin: 40px 0;
-    }
-    
-    .feature-box {
-        background: linear-gradient(135deg, #f8fafc 0%, white 100%);
-        padding: 30px;
-        border-radius: 12px;
-        text-align: center;
-        border: 1px solid var(--border-color);
-        transition: all 0.3s ease;
-    }
-    
-    .feature-box:hover {
-        transform: translateY(-8px);
-        border-color: var(--accent-color);
-        box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
-    }
-    
-    .feature-icon {
-        font-size: 3rem;
-        color: var(--accent-color);
-        margin-bottom: 15px;
-    }
-    
-    .feature-box h4 {
-        color: var(--dark-color);
-        margin-bottom: 10px;
-    }
-    
-    .feature-box p {
-        color: #9ca3af;
-        font-size: 0.95rem;
-    }
-</style>
-@endsection
+@push('page-styles')
+    @vite(['resources/css/pages/kawasan.css'])
+@endpush
 
 @section('content')
-<div class="container-lg">
-    {{-- Page Header --}}
-    <div class="page-header">
-        <h1><i class="fas fa-map"></i> Informasi Kawasan</h1>
-        <p>Ketahui lebih banyak tentang lokasi strategis &amp; fasilitas di sekitar kawasan Kotabaru</p>
+
+{{--  HERO  --}}
+<div class="kw-hero">
+    <div class="kw-hero-bg">
+        <img src="{{ asset('images/2.png') }}" alt="Kawasan Kotabaru">
     </div>
-
-    {{-- Lokasi Strategis Section --}}
-    <section class="content-section">
-        <h2><i class="fas fa-location-dot"></i> Lokasi Strategis</h2>
-        <div class="info-card">
-            <h3>Posisi Geografis Sempurna</h3>
-            <p>
-                Kotabaru merupakan kawasan yang terletak di lokasi strategis dengan akses mudah ke berbagai pusat kegiatan.
-                Jaraknya yang ideal dari pusat kota memberikan keseimbangan antara ketenangan hunian dan aksesibilitas yang baik.
-                Kawasan ini terus berkembang dengan infrastruktur yang semakin modern dan lengkap.
-            </p>
+    <div class="kw-hero-body">
+        <div>
+            <div class="kw-hero-tag"><i class="fas fa-map-location-dot fa-xs"></i> Informasi Kawasan</div>
+            <h1>Lokasi Strategis,<br><em>Nilai Tak Tertandingi</em></h1>
+            <p class="kw-hero-desc">Kawasan Kotabaru Parahyangan hadir di titik terbaik — aksesibel, hijau, dan terus berkembang untuk generasi masa depan.</p>
         </div>
-        
-        <div class="info-card">
-            <h3>Aksesibilitas &amp; Transportasi</h3>
-            <p>
-                Kawasan Kotabaru dapat diakses melalui berbagai rute transportasi utama, menjadikannya mudah dijangkau.
-                Dengan dekat ke jalan toll dan jalur transportasi publik, mobilitas penghuni sangat terjamin.
-                Waktu tempuh ke berbagai destinasi penting relatif singkat dan efisien.
-            </p>
-        </div>
-    </section>
-
-    {{-- Fasilitas Section --}}
-    <section class="content-section">
-        <h2><i class="fas fa-building"></i> Fasilitas Lengkap</h2>
-        <div class="feature-grid">
-            <div class="feature-box">
-                <div class="feature-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <h4>Pusat Perbelanjaan</h4>
-                <p>Mall dan pusat perbelanjaan berkualitas dengan berbagai brand ternama</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">
-                    <i class="fas fa-hospital"></i>
-                </div>
-                <h4>Fasilitas Kesehatan</h4>
-                <p>Rumah sakit modern dan klinik dengan pelayanan kesehatan terpercaya</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">
-                    <i class="fas fa-school"></i>
-                </div>
-                <h4>Pendidikan Berkualitas</h4>
-                <p>Sekolah dan universitas ternama dengan standar pendidikan internasional</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">
-                    <i class="fas fa-tree"></i>
-                </div>
-                <h4>Ruang Hijau</h4>
-                <p>Taman dan area rekreasi untuk aktifitas keluarga sehari-hari</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-                <h4>Olahraga &amp; Wellness</h4>
-                <p>Fasilitas gym, kolam renang, dan lapangan olahraga modern</p>
-            </div>
-            <div class="feature-box">
-                <div class="feature-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <h4>Restoran &amp; Cafe</h4>
-                <p>Berbagai pilihan tempat makan dari lokal hingga internasional</p>
-            </div>
-        </div>
-    </section>
-
-    {{-- Lingkungan Section --}}
-    <section class="content-section">
-        <h2><i class="fas fa-leaf"></i> Lingkungan &amp; Komunitas</h2>
-        <div class="info-card">
-            <h3>Komunitas yang Solid</h3>
-            <p>
-                Kawasan Kotabaru memiliki komunitas penghuni yang aktif dan solid. Berbagai kegiatan sosial dan 
-                acara komunitas diadakan secara rutin untuk mempererat hubungan antar penghuni. Keamanan lingkungan 
-                juga menjadi prioritas utama dengan sistem keamanan yang modern dan terpercaya.
-            </p>
-        </div>
-
-        <div class="info-card">
-            <h3>Keberlanjutan Lingkungan</h3>
-            <p>
-                Kawasan ini dikembangkan dengan mempertimbangkan nilai-nilai keberlanjutan lingkungan. Terdapat 
-                banyak area hijau, sistem pengelolaan air, dan inisiatif ramah lingkungan lainnya. Komitmen terhadap 
-                pembangunan berkelanjutan membuat kawasan ini semakin layak untuk ditinggali jangka panjang.
-            </p>
-        </div>
-    </section>
-
-    {{-- Future Development --}}
-    <section class="content-section">
-        <h2><i class="fas fa-chart-line"></i> Perkembangan Masa Depan</h2>
-        <div class="info-card">
-            <h3>Rencana Pengembangan</h3>
-            <p>
-                Kawasan Kotabaru terus mengalami perkembangan positif dengan berbagai proyek infrastruktur yang sedang 
-                berlangsung dan akan datang. Pembangunan ini akan meningkatkan nilai properti dan kualitas hidup penghuni. 
-                Investasi di kawasan ini adalah keputusan yang tepat untuk masa depan.
-            </p>
-        </div>
-    </section>
-
-    {{-- CTA Section --}}
-    <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); 
-                padding: 60px 30px; border-radius: 15px; text-align: center; color: white; margin: 60px 0;">
-        <h2 style="color: white; margin-bottom: 20px;">Tertarik Memiliki Properti di Kawasan Kotabaru?</h2>
-        <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95;">
-            Konsultasikan kebutuhan properti Anda dengan tim profesional kami
-        </p>
-        <div class="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="{{ route('properties.hunian') }}" class="btn" style="background: white; color: var(--primary-color); font-weight: 600; padding: 12px 35px; border: none; border-radius: 6px;">
-                <i class="fas fa-search"></i> Cari Hunian
-            </a>
-            <a href="{{ route('kontak') }}" class="btn" style="background: var(--accent-color); color: white; font-weight: 600; padding: 12px 35px; border: none; border-radius: 6px;">
-                <i class="fas fa-phone"></i> Hubungi Kami
-            </a>
+        <div class="kw-hero-stats">
+            <div class="kw-stat"><div class="kw-stat-n">2.200<span style="font-size:1rem">Ha</span></div><div class="kw-stat-l">Luas Kawasan</div></div>
+            <div class="kw-stat"><div class="kw-stat-n">15<span style="font-size:1rem">min</span></div><div class="kw-stat-l">Ke Tol Padalarang</div></div>
+            <div class="kw-stat"><div class="kw-stat-n">30<span style="font-size:1rem">+</span></div><div class="kw-stat-l">Institusi Pendidikan</div></div>
+            <div class="kw-stat"><div class="kw-stat-n">40<span style="font-size:1rem">%</span></div><div class="kw-stat-l">Area Terbuka Hijau</div></div>
         </div>
     </div>
 </div>
+
+{{--  LOKASI  --}}
+<div class="kw-section">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="kw-2col">
+            <div>
+                <x-frontend.section-header icon="fas fa-location-dot" label="Lokasi" title="Posisi Geografis<br><span>Yang Sempurna</span>" />
+                <div class="mt-4">
+                    <div class="kw-info-card">
+                        <h3>Pusat Segala Kemudahan</h3>
+                        <p>Terletak di Padalarang, Bandung Barat, kawasan ini menghubungkan ketenangan alam pegunungan Parahyangan dengan aksesibilitas kota besar.</p>
+                    </div>
+                    <div class="kw-info-card">
+                        <h3>Aksesibilitas & Transportasi</h3>
+                        <p>Terhubung langsung dengan Jalan Tol Padalarang–Cileunyi, jalur kereta Padalarang, dan rencana LRT Metropolita Bandung.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="kw-img">
+                <img src="{{ asset('images/IKEA_Store.jpg') }}" alt="Lokasi Kawasan">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--  FASILITAS  --}}
+<div class="kw-section alt">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="text-center mb-5">
+            <x-frontend.section-header icon="fas fa-building" label="Fasilitas" title="Semua Ada di <span>Satu Kawasan</span>" :center="true" />
+        </div>
+        <div class="kw-feat-grid">
+            @foreach([
+                ['fas fa-utensils', 'Pusat Perbelanjaan',  'Mall dan tenant brand ternama dalam kawasan'],
+                ['fas fa-hospital', 'Fasilitas Kesehatan', 'RS modern dan klinik dengan pelayanan terpercaya'],
+                ['fas fa-school',   'Pendidikan Lengkap',  'TK hingga universitas berstandar internasional'],
+                ['fas fa-tree',     'Ruang Hijau',         'Taman dan jalur hijau seluas 40% dari total kawasan'],
+                ['fas fa-dumbbell', 'Olahraga & Wellness', 'Sport club, kolam renang, jogging track'],
+                ['fas fa-mug-hot',  'Restoran & Café',     'Beragam pilihan kuliner lokal dan internasional'],
+            ] as [$ico, $ttl, $dsc])
+            <a href="{{ route('about') }}#fasilitas" class="kw-feat text-decoration-none">
+                <div class="kw-feat-ico"><i class="{{ $ico }}"></i></div>
+                <h4>{{ $ttl }}</h4>
+                <p>{{ $dsc }}</p>
+            </a>
+            @endforeach
+        </div>
+    </div>
+</div>
+
+{{--  KOMUNITAS  --}}
+<div class="kw-section dark">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="kw-2col">
+            <div>
+                <x-frontend.section-header
+                    icon="fas fa-leaf"
+                    label="Lingkungan & Komunitas"
+                    title="Hidup Lebih Baik di<br><span style='color:var(--blue2)'>Lingkungan Terbaik</span>"
+                    :dark="true"
+                />
+                <div class="mt-4">
+                    <div class="kw-dark-card">
+                        <div class="dc-ico"><i class="fas fa-users"></i></div>
+                        <h3>Komunitas yang Solid</h3>
+                        <p>Komunitas penghuni yang aktif dengan kegiatan sosial rutin — dari pasar pagi, festival budaya, hingga program olahraga bersama.</p>
+                    </div>
+                    <div class="kw-dark-card">
+                        <div class="dc-ico"><i class="fas fa-seedling"></i></div>
+                        <h3>Komitmen Keberlanjutan</h3>
+                        <p>40% area terbuka hijau, sistem pengelolaan air terpadu, panel surya di fasilitas publik, dan program zero-waste.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="kw-img">
+                <img src="{{ asset('images/5.jpg') }}" alt="Komunitas" style="filter:brightness(.8) saturate(.85);">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--  PERKEMBANGAN  --}}
+<div class="kw-section">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="kw-2col">
+            <div class="kw-img">
+                <img src="{{ asset('images/Mason_Pine_Hotel.jpg') }}" alt="Perkembangan">
+            </div>
+            <div>
+                <x-frontend.section-header icon="fas fa-chart-line" label="Perkembangan" title="Investasi untuk<br><span>Masa Depan</span>" />
+                <div class="kw-timeline mt-4">
+                    @foreach([
+                        ['2000 – 2005', 'Fondasi Kawasan',     'Pembangunan infrastruktur dasar, cluster pertama, dan fasilitas pendidikan awal.'],
+                        ['2006 – 2018', 'Ekspansi & Pertumbuhan','Penambahan 15+ cluster hunian, sport club, dan pusat perbelanjaan dalam kawasan.'],
+                        ['2019 – Sekarang','Era Smart Living',  'Integrasi teknologi smarthome, pengembangan MRT feeder, dan proyek mixed-use terbaru.'],
+                        ['2025 – 2030', 'Rencana Masa Depan',  'Transit hub terpadu, business park internasional, dan pengembangan zona wellness eksklusif.'],
+                    ] as [$yr, $ttl, $dsc])
+                    <div class="kw-tl-item">
+                        <div class="tl-year">{{ $yr }}</div>
+                        <div class="tl-title">{{ $ttl }}</div>
+                        <div class="tl-desc">{{ $dsc }}</div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--  CTA  --}}
+<div class="kw-cta">
+    <div class="container-lg px-3 px-lg-5">
+        <h2>Tertarik Memiliki Properti<br><span>di Kawasan Kotabaru?</span></h2>
+        <p>Konsultasikan kebutuhan properti Anda dengan tim profesional kami — gratis, tanpa komitmen.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{{ route('properties.hunian') }}" class="btn-prim"><i class="fas fa-search"></i> Cari Hunian</a>
+            <a href="{{ route('about') }}#fasilitas"  class="btn-out"><i class="fas fa-arrow-left"></i> Kembali ke Tentang Kami</a>
+        </div>
+    </div>
+</div>
+
+{{-- WA FLOATING --}}
+<x-frontend.wa-floating />
+
 @endsection

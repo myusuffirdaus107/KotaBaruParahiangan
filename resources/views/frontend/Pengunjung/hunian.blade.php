@@ -1,144 +1,84 @@
 @extends('frontend.layouts.app')
-
 @section('title', 'Hunian - Properti Kotabaru')
 
-@section('styles')
-<style>
-    .hunian-section {
-        padding: 80px 0;
-    }
-
-    .hunian-item {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-        align-items: center;
-        margin-bottom: 100px;
-        padding: 0 20px;
-    }
-
-    .hunian-item.reverse {
-        direction: rtl;
-    }
-
-    .hunian-item.reverse > * {
-        direction: ltr;
-    }
-
-    .hunian-image {
-        overflow: hidden;
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .hunian-image img {
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .hunian-image:hover img {
-        transform: scale(1.05);
-    }
-
-    .hunian-content h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.5rem;
-        color: #1a5a7f;
-        margin-bottom: 20px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
-
-    .hunian-content p {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #475569;
-        margin-bottom: 30px;
-        text-align: justify;
-    }
-
-    .hunian-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        background: #22a047;
-        color: white;
-        padding: 16px 40px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: 2px solid #22a047;
-        font-size: 1.05rem;
-    }
-
-    .hunian-cta:hover {
-        background: white;
-        color: #22a047;
-        box-shadow: 0 8px 20px rgba(34, 160, 71, 0.3);
-    }
-
-    .hunian-cta i {
-        font-size: 1.2rem;
-    }
-
-    @media (max-width: 768px) {
-        .hunian-item {
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-bottom: 60px;
-            padding: 0;
-        }
-
-        .hunian-item.reverse {
-            direction: ltr;
-        }
-
-        .hunian-content h2 {
-            font-size: 1.8rem;
-        }
-
-        .hunian-content p {
-            font-size: 1rem;
-        }
-
-        .hunian-image img {
-            height: 300px;
-        }
-    }
-</style>
-@endsection
+@push('page-styles')
+    @vite(['resources/css/pages/hunian.css'])
+@endpush
 
 @section('content')
-<div class="container-lg">
-    <div class="hunian-section">
-        @forelse($properties as $property)
-            <div class="hunian-item {{ $loop->odd ? '' : 'reverse' }}">
-                <div class="hunian-image">
-                    @if($property->images->count() > 0)
-                        <img src="{{ asset('storage/' . $property->images->first()->image_path) }}" alt="{{ $property->title }}">
-                    @else
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=450&fit=crop" alt="{{ $property->title }}">
-                    @endif
-                </div>
-                <div class="hunian-content">
-                    <h2>{{ strtoupper($property->title) }}</h2>
-                    <p>{{ $property->description ?? $property->title }}</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20dengan%20{{ urlencode($property->title) }}" target="_blank" class="hunian-cta">
-                        <i class="fab fa-whatsapp"></i>
-                        WhatsApp
-                    </a>
-                </div>
-            </div>
-        @empty
-            <div style="text-align: center; padding: 100px 20px;">
-                <i class="fas fa-search" style="font-size: 4rem; color: #cbd5e1; margin-bottom: 20px; display: block;"></i>
-                <h3 style="color: #1a5a7f; margin-bottom: 10px;">Hunian Tidak Ditemukan</h3>
-                <p style="color: #9ca3af; font-size: 1.05rem;">Maaf, tidak ada data hunian yang tersedia saat ini.</p>
-            </div>
-        @endforelse
+
+{{--  HERO  --}}
+<div class="hn-hero">
+    <div class="hn-hero-img">
+        @php $heroImg = $properties->first()?->images->first(); @endphp
+        <img src="{{ $heroImg ? asset('storage/'.$heroImg->image_path) : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&h=700&fit=crop' }}"
+             alt="Hunian Kotabaru">
+    </div>
+    <div class="hn-hero-arc"></div>
+    <div class="hn-hero-body">
+        <div class="hn-hero-left">
+            <h1>Your Gateway to<br>a <span>Better Life</span></h1>
+            <p>Temukan hunian impian yang lebih dari sekadar tempat tinggal — dirancang untuk kehidupan modern yang nyaman dan harmonis bersama keluarga.</p>
+            <a href="#hn-list" class="btn-hn">
+                <i class="fas fa-search"></i> Lihat Hunian
+            </a>
+        </div>
     </div>
 </div>
+
+{{--  LIST  --}}
+<div class="hn-section" id="hn-list">
+    <div class="hn-sec-head">
+        <div>
+            <h2>Pilihan <span>Hunian</span> Kami</h2>
+            <p>Temukan tipe hunian yang paling sesuai dengan kebutuhan Anda</p>
+            <div class="hn-sec-line"></div>
+        </div>
+    </div>
+
+    @if($properties->isEmpty())
+        <div class="hn-empty">
+            <i class="fas fa-home"></i>
+            <h3>Hunian Tidak Ditemukan</h3>
+            <p>Tidak ada data hunian yang tersedia saat ini.</p>
+        </div>
+    @else
+        <div class="hn-masonry">
+            @foreach($properties as $i => $property)
+            <a href="{{ route('property.show', $property->slug) }}" class="text-decoration-none">
+                <div class="hn-tile {{ $i === 0 ? 'feat' : '' }}">
+                    <div class="ti">
+                        <img src="{{ $property->images->count() ? asset('storage/'.$property->images->first()->image_path) : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&h=500&fit=crop' }}"
+                             alt="{{ $property->title }}" loading="lazy">
+                    </div>
+                    <div class="tc">
+                        <div class="tc-top">
+                            <span class="tc-cat">{{ $property->category->name ?? 'Hunian' }}</span>
+                            <span class="tc-badge {{ $property->status === 'available' ? 'avail' : 'sold' }}">
+                                {{ $property->status === 'available' ? 'Tersedia' : 'Sold Out' }}
+                            </span>
+                        </div>
+                        <h3>TATAR {{ strtoupper($property->title) }}</h3>
+                        <div class="tc-loc"><i class="fas fa-map-marker-alt"></i> {{ $property->location }}</div>
+                        <hr class="tc-divider">
+                        <div class="tc-acts">
+                            <a href="https://wa.me/6281234567890?text=Saya%20tertarik%20dengan%20{{ urlencode($property->title) }}"
+                               target="_blank" class="btn-wa">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <a href="{{ route('property.show', $property->slug) }}" class="btn-dt">
+                                <i class="fas fa-eye"></i> Detail
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            @endforeach
+        </div>
+    @endif
+</div>
+
+{{-- WA FLOATING --}}
+<x-frontend.wa-floating />
+
 @endsection

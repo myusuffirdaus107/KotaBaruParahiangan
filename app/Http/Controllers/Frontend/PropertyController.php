@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Models\Category;
@@ -13,9 +14,28 @@ class PropertyController extends Controller
      */
     public function index($slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
-        
-        $property = Property::where('category_id', $category->id)->available();
+        if ($slug === 'business') {
+            // For business page, show all properties except hunian category
+            $hunianCategory = Category::where('slug', 'hunian')->first();
+            $excludedCategoryId = $hunianCategory ? $hunianCategory->id : null;
+
+            $property = Property::available();
+
+            if ($excludedCategoryId) {
+                $property->where('category_id', '!=', $excludedCategoryId);
+            }
+
+            // Create a dummy category object for business page
+            $category = (object) [
+                'id' => null,
+                'name' => 'Business Properties',
+                'slug' => 'business'
+            ];
+        } else {
+            // For other categories (like hunian), use existing logic
+            $category = Category::where('slug', $slug)->firstOrFail();
+            $property = Property::where('category_id', $category->id)->available();
+        }
 
         // Filter by price
         if (request('min_price')) {
@@ -51,5 +71,22 @@ class PropertyController extends Controller
             ->get();
 
         return view('frontend.properties.show', compact('property', 'relatedProperties'));
+    }
+
+    public function downloadBrochure(Property $property)
+    {
+        if (!$property->brochure) {
+            abort(404, 'Brosur tidak tersedia.');
+        }
+
+        $path = storage_path('app/public/' . $property->brochure);
+
+        if (!file_exists($path)) {
+            abort(404, 'File brosur tidak ditemukan.');
+        }
+
+        return response()->download($path, $property->title . '.pdf', [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }

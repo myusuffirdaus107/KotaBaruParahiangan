@@ -13,10 +13,24 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = Slider::active()->get();
-        $launchings = Launching::active()->latest()->get();
-        $featuredProperties = Property::available()->featured()->latest()->limit(6)->get();
 
-        return view('frontend.pengunjung.home', compact('sliders', 'launchings', 'featuredProperties'));
+    $launchings = Launching::whereIn('status', ['active', 'coming_soon'])
+        ->orderByDesc('launch_date')
+        ->get();
+
+    $featuredProperties = Property::available()
+        ->featured()
+        ->with(['images', 'category'])
+        ->whereHas('category', function ($q) {
+            $q->where('slug', 'hunian');
+        })
+        ->latest()
+        ->limit(3)
+        ->get();
+
+    return view('frontend.pengunjung.home', compact(
+        'sliders', 'launchings', 'featuredProperties'
+    ));
     }
 
     public function kawasan()
@@ -37,7 +51,7 @@ class HomeController extends Controller
 
     public function brochure()
     {
-        $properties = Property::with(['category', 'propertyImages'])->whereNotNull('brochure')->get();
+        $properties = Property::with(['category', 'images'])->whereNotNull('brochure')->get();
         $categories = Category::all();
         return view('frontend.brochure', compact('properties', 'categories'));
     }

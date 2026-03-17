@@ -1,262 +1,154 @@
 @extends('frontend.layouts.app')
-
 @section('title', 'Tentang Kami - Properti Kotabaru')
 
-@section('styles')
-<style>
-    .about-header {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        color: white;
-        padding: 80px 30px;
-        text-align: center;
-        margin-bottom: 60px;
-        border-radius: 12px;
-    }
-
-    .about-header h1 {
-        font-size: 2.8rem;
-        margin-bottom: 10px;
-        font-weight: 700;
-    }
-
-    .about-header p {
-        font-size: 1.2rem;
-        opacity: 0.9;
-    }
-
-    .about-section {
-        margin: 80px 0;
-    }
-
-    .about-section h2 {
-        font-size: 2.2rem;
-        margin-bottom: 40px;
-        color: var(--dark-color);
-        font-weight: 600;
-    }
-
-    .about-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-    }
-
-    .about-image {
-        width: 100%;
-        height: 350px;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .about-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .about-text p {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: #6b7280;
-        margin-bottom: 15px;
-    }
-
-    /* Facilities Grid */
-    .facilities-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-        margin-bottom: 50px;
-    }
-
-    .facility-card {
-        background: white;
-        padding: 28px 25px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        cursor: pointer;
-        border: none;
-        text-align: left;
-    }
-
-    .facility-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    }
-
-    .facility-card:active {
-        transform: translateY(-2px);
-    }
-
-    .facility-icon {
-        font-size: 2.2rem;
-        color: #1f2937;
-        flex-shrink: 0;
-    }
-
-    .facility-content {
-        flex: 1;
-    }
-
-    .facility-title {
-        color: #000;
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin: 0;
-    }
-
-    .facility-arrow {
-        color: #1f2937;
-        font-size: 0.9rem;
-        flex-shrink: 0;
-        opacity: 0.6;
-    }
-
-    /* Section Styles */
-    .cta-section {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-        color: white;
-        padding: 60px 40px;
-        border-radius: 15px;
-        text-align: center;
-        margin: 80px 0;
-    }
-
-    .cta-section h2 {
-        color: white;
-        font-size: 2rem;
-        margin-bottom: 15px;
-    }
-
-    .cta-section p {
-        font-size: 1.05rem;
-        opacity: 0.95;
-        margin-bottom: 30px;
-    }
-
-    @media (max-width: 768px) {
-        .about-header h1 {
-            font-size: 2rem;
-        }
-
-        .about-content {
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        .about-image {
-            height: 250px;
-        }
-
-        .facilities-grid {
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .facility-card {
-            padding: 20px 15px;
-        }
-
-        .facility-icon {
-            font-size: 1.8rem;
-        }
-
-        .facility-title {
-            font-size: 1rem;
-        }
-    }
-</style>
-@endsection
+@push('page-styles')
+    @vite(['resources/css/pages/about.css'])
+@endpush
 
 @section('content')
-<div class="container-lg">
-    {{-- Header --}}
-    <div class="about-header">
-        <h1><i class="fas fa-city"></i> Kota Baru Parahyangan</h1>
-        <p>Kota Mandiri Berwawasan Pendidikan</p>
+
+{{-- HERO --}}
+<div class="ab-hero">
+    <div class="ab-hero-left">
+        <div class="ab-tag"><i class="fas fa-city fa-xs"></i> Est. Since 2000</div>
+        <h1>Kota Baru<br><em>Parahyangan</em></h1>
+        <p>Kawasan kota mandiri berwawasan pendidikan — dirancang untuk kehidupan yang seimbang antara produktivitas, kenyamanan, dan alam.</p>
+        <div class="ab-stats">
+            <div>
+                <div class="ab-stat-n">1500<sup style="font-size:1.2rem">+</sup></div>
+                <div class="ab-stat-l">Unit Terjual</div>
+            </div>
+            <div>
+                <div class="ab-stat-n">25<sup style="font-size:1.2rem">+</sup></div>
+                <div class="ab-stat-l">Tahun Pengalaman</div>
+            </div>
+            <div>
+                <div class="ab-stat-n">12</div>
+                <div class="ab-stat-l">Fasilitas Publik</div>
+            </div>
+        </div>
     </div>
-
-    {{-- Tentang Kami Section --}}
-    @if($about)
-    <section class="about-section">
-        <h2><i class="fas fa-info-circle"></i> {{ $about->section_title }}</h2>
-        <div class="about-content">
-            @if($about->image_path)
-            <div class="about-image">
-                <img src="{{ Storage::url($about->image_path) }}" alt="{{ $about->section_title }}">
-            </div>
-            @else
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=500&h=400&fit=crop" alt="Kota Baru Parahyangan">
-            </div>
-            @endif
-            <div class="about-text">
-                <p>{{ $about->description }}</p>
-            </div>
-        </div>
-    </section>
-
-    {{-- Visi & Misi Section --}}
-    <section class="about-section">
-        <h2><i class="fas fa-star"></i> {{ $about->vision_title }}</h2>
-        <div class="about-content">
-            <div class="about-image">
-                @if($about->vision_mission_image)
-                    <img src="{{ Storage::url($about->vision_mission_image) }}" alt="Visi Kami">
-                @else
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=400&fit=crop" alt="Visi Kami">
-                @endif
-            </div>
-            <div class="about-text">
-                <h3 style="color: var(--dark-color); margin-bottom: 15px; font-size: 1.3rem; font-weight: 600;">Visi</h3>
-                <div style="color: #6b7280; line-height: 1.7; margin-bottom: 25px;">
-                    {!! nl2br(e($about->vision_content)) !!}
-                </div>
-                <h3 style="color: var(--dark-color); margin-bottom: 15px; font-size: 1.3rem; font-weight: 600;">Misi</h3>
-                <p style="color: #6b7280; line-height: 1.8;">{{ $about->mission_content }}</p>
-            </div>
-        </div>
-    </section>
-    @endif
-
-    {{-- Fasilitas Publik Section --}}
-    <section class="about-section">
-        <h2 style="text-align: center;"><i class="fas fa-building"></i> Fasilitas Publik Tersedia</h2>
-        <div class="facilities-grid">
-            @forelse($facilities as $facility)
-                <a href="{{ route('facility.show', $facility->slug) }}" class="facility-card" style="text-decoration: none; color: inherit;">
-                    <i class="facility-icon {{ $facility->icon }}"></i>
-                    <div class="facility-content">
-                        <h4 class="facility-title">{{ $facility->title }}</h4>
-                    </div>
-                    <i class="facility-arrow fas fa-arrow-right"></i>
-                </a>
-            @empty
-                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #9ca3af;">
-                    <p><i class="fas fa-info-circle"></i> Fasilitas sedang diperbarui</p>
-                </div>
-            @endforelse
-        </div>
-    </section>
-
-    {{-- CTA Section --}}
-    <div class="cta-section">
-        <h2><i class="fas fa-handshake"></i> Tertarik Bekerja Sama Dengan Kami?</h2>
-        <p>Hubungi tim kami untuk konsultasi gratis atau penawaran spesial</p>
-        <div class="d-flex gap-3 justify-content-center flex-wrap">
-            <a href="{{ route('properties.hunian') }}" class="btn btn-light" style="padding: 12px 35px; font-weight: 600;">
-                <i class="fas fa-home"></i> Cari Properti
-            </a>
-            <button class="btn btn-outline-light" style="padding: 12px 35px; font-weight: 600;" data-bs-toggle="modal" data-bs-target="#contactModal">
-                <i class="fas fa-phone"></i> Hubungi Kami
-            </button>
+    <div class="ab-hero-right">
+        <img src="{{ asset('images/kota_baru_town.png') }}"
+             alt="Kota Baru Parahyangan">
+        <div class="ab-float">
+            <div class="fl">Rating Kepuasan</div>
+            <div class="fv">4.9 <span style="color:var(--gold)">★</span></div>
+            <div class="fs">dari 2.400+ penghuni</div>
         </div>
     </div>
 </div>
+
+{{-- ABOUT --}}
+@if($about)
+<div class="ab-about">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="ab-grid">
+            <div class="ab-img-wrap">
+                <img src="{{ $about->image_path ? Storage::url($about->image_path) : 'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=700&h=500&fit=crop' }}"
+                     alt="{{ $about->section_title }}">
+                <div class="ab-img-badge"><i class="fas fa-award"></i> Pengembang Terpercaya</div>
+            </div>
+            <div>
+                <x-frontend.section-header
+                    icon="fas fa-info-circle"
+                    :label="$about->section_title"
+                    title="Mengenal Lebih Dalam<br><span>Siapa Kami</span>"
+                />
+                <div class="ab-text mt-3"><p>{{ $about->description }}</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- VISION --}}
+<div class="ab-vision">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="ab-vis-grid">
+            <div class="ab-vis-img">
+                <img src="{{ $about->vision_mission_image ? Storage::url($about->vision_mission_image) : 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=700&h=500&fit=crop' }}"
+                     alt="Visi Misi">
+            </div>
+            <div>
+                <x-frontend.section-header
+                    icon="fas fa-star"
+                    :label="$about->vision_title"
+                    title="Landasan <span style='color:var(--blue2)'>Kami Bergerak</span>"
+                    :dark="true"
+                />
+                <div class="mt-3">
+                    <div class="vl">Visi</div>
+                    <div class="vh">{{ Str::limit($about->vision_content, 120) }}</div>
+                    <div class="v-divider"></div>
+                    <div class="vl">Misi</div>
+                    <p class="vt">{{ $about->mission_content }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+{{-- KAWASAN BANNER --}}
+<div class="container-lg px-3 px-lg-5">
+    <div class="ab-kawasan-banner">
+        <div>
+            <div class="kb-badge"><i class="fas fa-map-location-dot fa-xs"></i> Jelajahi Kawasan</div>
+            <h3>Kenali Lebih Dalam<br><span>Lokasi & Lingkungan</span> Kami</h3>
+            <p>Temukan informasi lengkap tentang aksesibilitas, infrastruktur, lingkungan komunitas, dan potensi investasi kawasan Kotabaru Parahyangan.</p>
+        </div>
+        <a href="{{ route('kawasan') }}" class="btn-kawasan">
+            <i class="fas fa-arrow-right"></i> Lihat Kawasan
+        </a>
+    </div>
+</div>
+
+{{-- FACILITIES --}}
+<div class="ab-fac" id="fasilitas">
+    <div class="container-lg px-3 px-lg-5">
+        <div class="ab-fac-inner">
+            <div class="text-center mb-5">
+                <x-frontend.section-header
+                    icon="fas fa-building"
+                    label="Fasilitas Kami"
+                    title="Fasilitas Publik <span>Tersedia</span>"
+                    :center="true"
+                />
+            </div>
+            <div class="fac-grid">
+                @forelse($facilities as $facility)
+                <a href="{{ route('facility.show', $facility->slug) }}" class="fac-item">
+                    <div class="fac-ico"><i class="{{ $facility->icon }}"></i></div>
+                    <span class="fac-name">{{ $facility->title }}</span>
+                    <i class="fas fa-arrow-right fac-arrow"></i>
+                </a>
+                @empty
+                <div style="grid-column:1/-1;text-align:center;padding:60px;color:#9ca3af;">
+                    <i class="fas fa-info-circle me-2"></i> Fasilitas sedang diperbarui
+                </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- CTA --}}
+<div class="ab-cta">
+    <div class="container-lg px-3 px-lg-5">
+        <h2>Siap Wujudkan<br><span>Hunian Impian Anda?</span></h2>
+        <p>Konsultasikan kebutuhan properti Anda bersama tim ahli kami — gratis, tanpa komitmen.</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{{ route('properties.hunian') }}" class="btn-primary-ab">
+                <i class="fas fa-home"></i> Cari Properti
+            </a>
+            <a href="{{ route('kontak') }}" class="btn-outline-ab">
+                <i class="fas fa-phone"></i> Hubungi Kami
+            </a>
+        </div>
+    </div>
+</div>
+
+{{-- WA FLOATING --}}
+<x-frontend.wa-floating />
+
 @endsection

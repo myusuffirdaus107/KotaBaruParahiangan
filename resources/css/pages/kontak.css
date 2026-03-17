@@ -1,0 +1,429 @@
+/* HERO */
+.kt-hero {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    padding: 88px 0 72px;
+}
+.kt-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            ellipse 60% 70% at 90% 50%,
+            rgba(37, 150, 190, 0.15) 0%,
+            transparent 65%
+        ),
+        radial-gradient(
+            ellipse 40% 60% at 5% 80%,
+            rgba(26, 111, 168, 0.12) 0%,
+            transparent 60%
+        );
+}
+.kt-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+.kt-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue2);
+    background: rgba(37, 150, 190, 0.12);
+    border: 1px solid rgba(37, 150, 190, 0.3);
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+}
+.kt-hero h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 16px;
+}
+.kt-hero h1 em {
+    color: var(--blue2);
+    font-style: italic;
+}
+.kt-hero-desc {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.44);
+    line-height: 1.85;
+}
+.kt-quick {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.kt-qcard {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    transition:
+        background 0.22s,
+        border-color 0.22s,
+        transform 0.22s;
+}
+.kt-qcard:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(37, 150, 190, 0.4);
+    transform: translateX(4px);
+}
+.kt-qcard-ico {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    flex-shrink: 0;
+    background: rgba(37, 150, 190, 0.15);
+    border: 1px solid rgba(37, 150, 190, 0.25);
+    display: grid;
+    place-items: center;
+    color: var(--blue2);
+    font-size: 0.9rem;
+}
+.kt-qcard-lbl {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 2px;
+}
+.kt-qcard-val {
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* MAIN SECTION */
+.kt-main {
+    padding: 80px 0 88px;
+    background: var(--bg);
+}
+.kt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 32px;
+}
+
+/* INFO PANEL */
+.kt-info {
+    background: var(--navy);
+    border-radius: 20px;
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+.kt-info::before {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(37, 150, 190, 0.12) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+.kt-info-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+}
+.kt-info-sub {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.38);
+}
+.kt-info-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+}
+.kt-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+.kt-ii-ico {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background: rgba(37, 150, 190, 0.12);
+    border: 1px solid rgba(37, 150, 190, 0.2);
+    display: grid;
+    place-items: center;
+    color: var(--blue2);
+    font-size: 0.8rem;
+}
+.kt-ii-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 3px;
+}
+.kt-ii-val {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.6;
+}
+.kt-ii-val a {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.kt-ii-val a:hover {
+    color: var(--blue2);
+}
+.kt-socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+.kt-social {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.kt-social:hover {
+    background: var(--blue2);
+    border-color: var(--blue2);
+    color: #fff;
+    transform: translateY(-3px);
+}
+.kt-hours {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px 18px;
+}
+.kt-hours-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.kt-hours-row:last-child {
+    border-bottom: none;
+}
+.kt-hours-row .day {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.65);
+}
+.kt-hours-row .time {
+    color: var(--blue2);
+    font-weight: 500;
+}
+.kt-hours-row .closed {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+/* FORM */
+.kt-form-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 36px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+}
+.kt-form-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+}
+.kt-form-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+}
+.kt-form-divider {
+    height: 3px;
+    width: 40px;
+    background: linear-gradient(90deg, var(--blue), var(--blue2));
+    border-radius: 2px;
+    margin-bottom: 32px;
+}
+.kt-field {
+    margin-bottom: 20px;
+}
+.kt-field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 7px;
+    letter-spacing: 0.02em;
+}
+.kt-field label .req {
+    color: #ef4444;
+    margin-left: 2px;
+}
+.kt-input {
+    width: 100%;
+    padding: 11px 15px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: "Outfit", sans-serif;
+    font-size: 0.88rem;
+    color: var(--navy);
+    background: var(--bg);
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+    outline: none;
+}
+.kt-input:focus {
+    border-color: var(--blue);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(26, 111, 168, 0.1);
+}
+.kt-input.is-invalid {
+    border-color: #ef4444;
+    background: #fef2f2;
+}
+.kt-input.is-invalid:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+.kt-invalid {
+    font-size: 0.75rem;
+    color: #ef4444;
+    margin-top: 5px;
+    font-weight: 500;
+}
+textarea.kt-input {
+    min-height: 130px;
+    resize: vertical;
+}
+.kt-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.kt-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: "Outfit", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    box-shadow: 0 8px 24px rgba(13, 31, 60, 0.2);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    margin-top: 8px;
+}
+.kt-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(13, 31, 60, 0.28);
+}
+
+/* MAP */
+.kt-map-section {
+    padding: 0 0 88px;
+    background: var(--bg);
+}
+.kt-map-head {
+    text-align: center;
+    margin-bottom: 32px;
+}
+.kt-map-head h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--navy);
+}
+.kt-map-head h2 span {
+    color: var(--blue);
+}
+.kt-map-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    height: 460px;
+}
+.kt-map-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .kt-hero-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    .kt-grid {
+        grid-template-columns: 1fr;
+    }
+    .kt-field-row {
+        grid-template-columns: 1fr;
+    }
+    .kt-main {
+        padding: 56px 0 64px;
+    }
+    .kt-map-section {
+        padding-bottom: 64px;
+    }
+}
+@media (max-width: 560px) {
+    .kt-hero {
+        padding: 64px 0 52px;
+    }
+    .kt-info,
+    .kt-form-card {
+        padding: 28px 22px;
+    }
+}

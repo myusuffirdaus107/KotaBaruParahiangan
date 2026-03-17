@@ -41,6 +41,9 @@ Route::get('/launching', [HomeController::class, 'launching'])->name('launching'
 Route::get('/kontak', [HomeController::class, 'kontak'])->name('kontak');
 Route::get('/brochure', [HomeController::class, 'brochure'])->name('brochure');
 
+// Brochure download
+Route::get('/brochure/download/{property:slug}', [PropertyController::class, 'downloadBrochure'])->name('brochure.download');
+
 /**
  * ADMIN ROUTES
  */
