@@ -4,7 +4,7 @@
 @section('page-title', (isset($slider) ? 'Edit Slider' : 'Tambah Slider Baru'))
 
 @section('content')
-<a href="{{ route('admin.sliders.index') }}" class="btn btn-secondary mb-3">
+<a href="{{ route('admin.sliders.index') }}" class="btn btn-secondary bg-white mb-3">
     <i class="fas fa-arrow-left"></i> Kembali
 </a>
 
@@ -46,19 +46,6 @@
             </div>
             
             <div class="form-group mb-3">
-                <label for="description" class="form-label">Deskripsi</label>
-                <textarea 
-                    class="form-control @error('description') is-invalid @enderror" 
-                    id="description" 
-                    name="description" 
-                    rows="4"
-                >{{ old('description', $slider->description ?? '') }}</textarea>
-                @error('description')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            
-            <div class="form-group mb-3">
                 <label for="image" class="form-label">Upload Gambar (JPEG, PNG, JPG, GIF - Max 5MB)</label>
                 <input 
                     type="file" 
@@ -80,39 +67,20 @@
                 </div>
                 @endif
             </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="button_text" class="form-label">Teks Tombol</label>
-                        <input 
-                            type="text" 
-                            class="form-control @error('button_text') is-invalid @enderror" 
-                            id="button_text" 
-                            name="button_text" 
-                            value="{{ old('button_text', $slider->button_text ?? '') }}"
-                        >
-                        @error('button_text')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="button_link" class="form-label">Link Tombol</label>
-                        <input 
-                            type="text" 
-                            class="form-control @error('button_link') is-invalid @enderror" 
-                            id="button_link" 
-                            name="button_link" 
-                            value="{{ old('button_link', $slider->button_link ?? '') }}"
-                        >
-                        @error('button_link')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
+
+            <div class="form-group mb-3">
+                <label for="order" class="form-label">Urutan</label>
+                <input 
+                    type="number" 
+                    class="form-control @error('order') is-invalid @enderror" 
+                    id="order" 
+                    name="order" 
+                    value="{{ old('order', $slider->order ?? 0) }}"
+                    min="0"
+                >
+                @error('order')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             
             <div class="form-group mb-3">

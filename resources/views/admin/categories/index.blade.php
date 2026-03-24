@@ -10,15 +10,13 @@
     </a>
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive w-100">
     <table class="table">
         <thead>
             <tr>
-                <th>Nama</th>
-                <th>Slug</th>
-                <th>Icon</th>
-                <th>Deskripsi</th>
-                <th>Action</th>
+                <th class="col-5">Nama</th>
+                <th class="col-5">Slug</th>
+                <th class="col-2">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -26,15 +24,7 @@
             <tr>
                 <td><strong>{{ $category->name }}</strong></td>
                 <td>{{ $category->slug }}</td>
-                <td>
-                    @if($category->icon)
-                        <i class="{{ $category->icon }}"></i> {{ $category->icon }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td>{{ substr($category->description ?? '-', 0, 50) }}...</td>
-                <td>
+                <td class="d-flex gap-2">
                     <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-primary">
                         <i class="fas fa-edit"></i>
                     </a>

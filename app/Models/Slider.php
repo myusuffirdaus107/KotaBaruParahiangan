@@ -14,7 +14,6 @@ class Slider extends Model
         'title',
         'subtitle',
         'image',
-        'link',
         'is_active',
         'order',
     ];

@@ -27,9 +27,9 @@
 
 {{-- NAVBAR --}}
 <nav class="main-nav" id="mainNav">
-    <div class="container-lg">
+    <div class="container-lg px-3 px-lg-5">
         <a class="nav-brand" href="{{ route('home') }}">
-            <img src="{{ asset('images/logo_kotabaru.png') }}" alt="Kota Baru Parahyangan">
+            <img class="logo" src="{{ asset('images/logo_kotabaru.png') }}" alt="Kota Baru Parahyangan">
         </a>
         <button class="nav-toggler" id="navToggler" aria-label="Toggle navigation">
             <i class="fas fa-bars" id="togglerIcon"></i>

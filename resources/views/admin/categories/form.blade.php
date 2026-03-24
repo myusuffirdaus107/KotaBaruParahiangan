@@ -52,34 +52,6 @@
                 </div>
             </div>
             
-            <div class="form-group mb-3">
-                <label for="icon" class="form-label">Icon (Font Awesome)</label>
-                <input 
-                    type="text" 
-                    class="form-control @error('icon') is-invalid @enderror" 
-                    id="icon" 
-                    name="icon" 
-                    value="{{ old('icon', $category->icon ?? '') }}"
-                    placeholder="contoh: fas fa-home"
-                >
-                @error('icon')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="description" class="form-label">Deskripsi</label>
-                <textarea 
-                    class="form-control @error('description') is-invalid @enderror" 
-                    id="description" 
-                    name="description" 
-                    rows="4"
-                >{{ old('description', $category->description ?? '') }}</textarea>
-                @error('description')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            
             <div style="display: flex; gap: 10px; margin-top: 30px;">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> 

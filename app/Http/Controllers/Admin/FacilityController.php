@@ -7,6 +7,7 @@ use App\Models\FacilityItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
 {
@@ -80,8 +81,8 @@ class FacilityController extends Controller
 
         if ($request->hasFile('banner')) {
             // Delete old banner if exists
-            if ($facility->banner && \Storage::disk('public')->exists($facility->banner)) {
-                \Storage::disk('public')->delete($facility->banner);
+            if ($facility->banner && Storage::disk('public')->exists($facility->banner)) {
+                Storage::disk('public')->delete($facility->banner);
             }
             $validated['banner'] = $request->file('banner')->store('facilities', 'public');
         }
@@ -98,8 +99,8 @@ class FacilityController extends Controller
      */
     public function destroy(Facility $facility)
     {
-        if ($facility->banner && \Storage::disk('public')->exists($facility->banner)) {
-            \Storage::disk('public')->delete($facility->banner);
+        if ($facility->banner && Storage::disk('public')->exists($facility->banner)) {
+            Storage::disk('public')->delete($facility->banner);
         }
 
         $facility->delete();
@@ -149,8 +150,8 @@ class FacilityController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($item->image && \Storage::disk('public')->exists($item->image)) {
-                \Storage::disk('public')->delete($item->image);
+            if ($item->image && Storage::disk('public')->exists($item->image)) {
+                Storage::disk('public')->delete($item->image);
             }
             $validated['image'] = $request->file('image')->store('facility-items', 'public');
         }
@@ -165,8 +166,8 @@ class FacilityController extends Controller
      */
     public function destroyItem(Facility $facility, FacilityItem $item)
     {
-        if ($item->image && \Storage::disk('public')->exists($item->image)) {
-            \Storage::disk('public')->delete($item->image);
+        if ($item->image && Storage::disk('public')->exists($item->image)) {
+            Storage::disk('public')->delete($item->image);
         }
 
         $item->delete();

@@ -14,8 +14,10 @@ export default defineConfig({
                 "resources/css/pages/kontak.css",
                 "resources/css/pages/show.css",
                 "resources/css/pages/brochure.css",
+                "resources/css/admin.css",
                 // JS
                 "resources/js/app.js",
+                "resources/js/admingit co.js",
                 "resources/js/pages/home.js",
                 "resources/js/pages/business.js",
                 "resources/js/pages/show.js",

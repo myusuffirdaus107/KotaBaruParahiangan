@@ -15,7 +15,6 @@ class Property extends Model
         'title',
         'slug',
         'description',
-        'price',
         'location',
         'status',
         'brochure',
@@ -23,8 +22,7 @@ class Property extends Model
     ];
 
     protected $casts = [
-        'featured' => 'boolean',
-        'price'    => 'integer',
+        'featured' => 'boolean'
     ];
 
     /**
@@ -55,9 +53,10 @@ class Property extends Model
      * Scope: properti yang statusnya available.
      * Menggunakan kolom 'status' sesuai migration.
      */
-    public function scopeAvailable($query)
+
+    public function getIsAvailableAttribute(): bool
     {
-        return $query->where('status', 'available');
+        return $this->status === 'available';
     }
 
     /**
@@ -67,5 +66,11 @@ class Property extends Model
     public function scopeFeatured($query)
     {
         return $query->where('featured', true);
+    }
+
+    // Tambahkan ini ↓
+    public function scopeAvailable($query)
+    {
+        return $query->where('status', 'available');
     }
 }

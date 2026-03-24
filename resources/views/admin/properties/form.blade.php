@@ -4,7 +4,7 @@
 @section('page-title', (isset($property) ? 'Edit Property' : 'Tambah Property Baru'))
 
 @section('content')
-<a href="{{ route('admin.properties.index') }}" class="btn btn-secondary mb-3">
+<a href="{{ route('admin.properties.index') }}" class="btn btn-secondary bg-white mb-3">
     <i class="fas fa-arrow-left"></i> Kembali
 </a>
 
@@ -101,62 +101,13 @@
                 </div>
             </div>
 
-            {{-- Harga --}}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="price_from" class="form-label">Harga Dari (Rp)</label>
-                        <input
-                            type="number"
-                            class="form-control @error('price_from') is-invalid @enderror"
-                            id="price_from"
-                            name="price_from"
-                            value="{{ old('price_from', $property->price_from ?? '') }}"
-                        >
-                        @error('price_from')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="price_to" class="form-label">Harga Hingga (Rp)</label>
-                        <input
-                            type="number"
-                            class="form-control @error('price_to') is-invalid @enderror"
-                            id="price_to"
-                            name="price_to"
-                            value="{{ old('price_to', $property->price_to ?? '') }}"
-                        >
-                        @error('price_to')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            {{-- Deskripsi Singkat --}}
-            <div class="form-group mb-3">
-                <label for="short_description" class="form-label">Deskripsi Singkat</label>
-                <textarea
-                    class="form-control @error('short_description') is-invalid @enderror"
-                    id="short_description"
-                    name="short_description"
-                    rows="2"
-                >{{ old('short_description', $property->short_description ?? '') }}</textarea>
-                @error('short_description')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
             {{-- Deskripsi Lengkap --}}
             <div class="form-group mb-3">
                 <label for="description" class="form-label">
                     Deskripsi Lengkap
                 </label>
                 <small class="d-block text-muted mb-1">
-                    Baris kosong = paragraf baru. Awali baris dengan <code>-</code> atau <code>•</code> untuk bullet point.
+                    Baris kosong = paragraf baru<br> Awali baris dengan <code>-</code> atau <code>•</code> untuk bullet point<br>
                     Contoh: <code>- Lokasi strategis</code>
                 </small>
                 <textarea
@@ -172,26 +123,26 @@
             </div>
 
             {{-- Status & Featured --}}
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group mb-3">
-            <label for="status" class="form-label">Status *</label>
-            <select class="form-select @error('status') is-invalid @enderror"
-                    id="status" name="status" required>
-                <option value="available"
-                    {{ old('status', $property->status ?? 'available') === 'available' ? 'selected' : '' }}>
-                    Tersedia
-                </option>
-                <option value="sold_out"
-                    {{ old('status', $property->status ?? '') === 'sold_out' ? 'selected' : '' }}>
-                    Sold Out
-                </option>
-            </select>
-            @error('status')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="status" class="form-label">Status *</label>
+                        <select class="form-select @error('status') is-invalid @enderror"
+                                id="status" name="status" required>
+                            <option value="available"
+                                {{ old('status', $property->status ?? 'available') === 'available' ? 'selected' : '' }}>
+                                Tersedia
+                            </option>
+                            <option value="sold_out"
+                                {{ old('status', $property->status ?? '') === 'sold_out' ? 'selected' : '' }}>
+                                Sold Out
+                            </option>
+                        </select>
+                        @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
 
     <div class="col-md-6">
         <div class="form-group mb-3">

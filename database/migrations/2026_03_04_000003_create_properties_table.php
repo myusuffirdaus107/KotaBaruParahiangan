@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('description');
-            $table->bigInteger('price');
             $table->string('location');
             $table->enum('status', ['available', 'sold_out'])->default('available');
             $table->string('brochure')->nullable();

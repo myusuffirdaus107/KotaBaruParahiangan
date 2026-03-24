@@ -254,27 +254,57 @@
                 title="Kami Siap <span>Membantu</span> Anda"
                 subtitle="Isi formulir atau hubungi tim kami langsung."
             />
+
+            @if(session('success'))
+                <div class="alert alert-success mt-3">
+                    <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                </div>
+            @endif
+
             <div class="row g-4 g-lg-5 mt-2">
                 <div class="col-lg-7">
-                    <form id="contactForm">
-                        @foreach([
-                            ['Nama Lengkap',    'text',  'name',    'Masukkan nama Anda',   true],
-                            ['Nomor Telepon',   'tel',   'phone',   '+62 812 345 6789',     true],
-                            ['Email',           'email', 'email',   'email@example.com',    false],
-                        ] as [$lbl, $typ, $id, $ph, $req])
+                    <form action="{{ route('inquiry.store') }}" method="POST" id="contactForm">
+                        @csrf
+                        <input type="hidden" name="property_id" value="">
+
                         <div class="form-field mb-3">
-                            <label>{{ $lbl }}</label>
-                            <input type="{{ $typ }}" id="{{ $id }}"
-                                   placeholder="{{ $ph }}" {{ $req ? 'required' : '' }}>
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="name" placeholder="Masukkan nama Anda"
+                                   value="{{ old('name') }}" required>
+                            @error('name')<span style="color:#ef4444;font-size:.75rem;">{{ $message }}</span>@enderror
                         </div>
-                        @endforeach
+
+                        <div class="form-field mb-3">
+                            <label>Nomor Telepon</label>
+                            <input type="tel" name="phone" placeholder="+62 812 345 6789"
+                                   value="{{ old('phone') }}" required>
+                            @error('phone')<span style="color:#ef4444;font-size:.75rem;">{{ $message }}</span>@enderror
+                        </div>
+
+                        <div class="form-field mb-3">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="email@example.com"
+                                   value="{{ old('email') }}" required>
+                            @error('email')<span style="color:#ef4444;font-size:.75rem;">{{ $message }}</span>@enderror
+                        </div>
+
                         <div class="form-field mb-3">
                             <label>Pesan</label>
-                            <textarea id="message" placeholder="Tulis pesan Anda..." required></textarea>
+                            <textarea name="message" placeholder="Tulis pesan Anda..." required minlength="10">{{ old('message') }}</textarea>
+                            @error('message')<span style="color:#ef4444;font-size:.75rem;">{{ $message }}</span>@enderror
                         </div>
-                        <button type="submit" class="btn-submit">
-                            <i class="fas fa-paper-plane me-2"></i>Kirim Pesan
-                        </button>
+
+                        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                            <button type="submit" class="btn-submit" style="flex:1; min-width:180px;">
+                                <i class="fas fa-paper-plane me-2"></i>Kirim Pesan
+                            </button>
+                            <a href="https://wa.me/082274226163?text={{ urlencode('Halo, saya ingin bertanya mengenai properti Kotabaru Parahyangan.') }}"
+                               target="_blank"
+                               class="btn-submit"
+                               style="flex:1; min-width:180px; background:linear-gradient(135deg,#22c55e,#16a34a); display:inline-flex; align-items:center; justify-content:center; text-decoration:none;">
+                                <i class="fab fa-whatsapp me-2"></i>Chat WhatsApp
+                            </a>
+                        </div>
                     </form>
                 </div>
                 <div class="col-lg-5">
