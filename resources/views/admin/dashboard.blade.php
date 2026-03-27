@@ -141,7 +141,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($property->is_available)
+                                        @if($property->status == 'available')
                                             <span class="badge bg-success">Tersedia</span>
                                         @else
                                             <span class="badge bg-danger">Tidak Tersedia</span>
