@@ -1,6 +1,4 @@
-/* ══════════════════════════════════
-   TAILWIND BASE
-══════════════════════════════════ */
+/* TAILWIND BASE */
 @import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -8,9 +6,7 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-/* ══════════════════════════════════
-   CSS VARIABLES
-══════════════════════════════════ */
+/* CSS VARIABLES */
 :root {
     --navy: #0d1f3c;
     --blue: #1a6fa8;
@@ -31,15 +27,23 @@
     --nav-bg-scroll: rgba(13, 24, 54, 0.97);
 }
 
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
 body {
     font-family: "Outfit", sans-serif;
     background: #fff;
     font-size: 15px;
 }
 
-/* ══════════════════════════════════
-   SHARED HELPERS
-══════════════════════════════════ */
+main {
+    padding-top: 76px;
+}
+
+/*SHARED HELPERS */
 .s-label,
 .s-tag {
     display: inline-flex;
@@ -366,9 +370,11 @@ body {
    NAVBAR
 ══════════════════════════════════ */
 .main-nav {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    max-width: 100vw;
     background: var(--nav-bg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     transition:
@@ -385,6 +391,9 @@ body {
     align-items: center;
     height: 76px;
     gap: 40px;
+    padding-left: 16px; /* ← tambah */
+    padding-right: 16px; /* ← tambah */
+    max-width: 100%; /* ← tambah */
 }
 .nav-brand {
     flex-shrink: 0;
@@ -688,14 +697,27 @@ body {
    MOBILE NAV
 ══════════════════════════════════ */
 @media (max-width: 900px) {
+    main {
+        padding-top: 76px;
+    }
+
     .nav-toggler {
         display: flex;
         align-items: center;
+        flex-shrink: 0;
     }
+
+    .main-nav .nav-brand .logo {
+        width: 150px;
+        height: auto;
+    }
+
     .nav-links {
         display: none;
-        position: absolute;
+        position: fixed;
         top: 76px;
+        width: 100vw;
+        max-width: 100vw;
         left: 0;
         right: 0;
         flex-direction: column;
@@ -707,6 +729,7 @@ body {
         border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         animation: navSlide 0.25s ease;
+        z-index: 999;
     }
     .nav-links.open {
         display: flex;

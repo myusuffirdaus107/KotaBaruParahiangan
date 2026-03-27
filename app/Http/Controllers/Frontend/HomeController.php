@@ -17,7 +17,7 @@ class HomeController extends Controller
     $launchings = Launching::whereIn('status', ['active', 'coming_soon'])
         ->orderByDesc('launch_date')
         ->get();
-
+    
     $featuredProperties = Property::available()
         ->featured()
         ->with(['images', 'category'])

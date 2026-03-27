@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class SliderController extends Controller
 {
     /**
@@ -35,8 +35,7 @@ class SliderController extends Controller
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
-            'button_text' => 'nullable|string|max:100',
-            'button_link' => 'nullable|string|max:255',
+            'order'     => 'integer|min:1',
             'is_active' => 'boolean',
         ]);
 
@@ -70,21 +69,22 @@ class SliderController extends Controller
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
-            'button_text' => 'nullable|string|max:100',
-            'button_link' => 'nullable|string|max:255',
+            'order' => 'nullable|integer|min:1',
             'is_active' => 'boolean',
         ]);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('sliders', 'public');
-            $validated['image'] = $imagePath;
+        // Hapus gambar lama sebelum upload baru
+        if ($slider->image) {
+            Storage::disk('public')->delete($slider->image);
         }
+        $validated['image'] = $request->file('image')->store('sliders', 'public');
+    }
 
-        $slider->update($validated);
+    $slider->update($validated);
 
-        return redirect()->route('admin.sliders.index')
-                       ->with('success', 'Slider berhasil diupdate');
+    return redirect()->route('admin.sliders.index')
+                   ->with('success', 'Slider berhasil diupdate');
     }
 
     /**
@@ -92,6 +92,9 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
+        if ($slider->image) {
+        Storage::disk('public')->delete($slider->image);
+    }
         $slider->delete();
         return redirect()->route('admin.sliders.index')
                        ->with('success', 'Slider berhasil dihapus');

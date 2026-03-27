@@ -18,16 +18,15 @@
 @endif
 
 <div class="table-responsive">
-    <table class="table">
+    <table class="table w-100">
         <thead>
             <tr>
-                <th style="width: 60px;">Urutan</th>
-                <th>Judul</th>
-                <th>Slug</th>
-                <th style="width: 100px;">Banner</th>
-                <th style="width: 80px;">Items</th>
-                <th style="width: 80px;">Status</th>
-                <th style="width: 180px;">Action</th>
+                <th class="col-1">Urutan</th>
+                <th class="col-3">Judul</th>
+                <th class="col-3">Banner</th>
+                <th class="col-1">Items</th>
+                <th class="col-1">Status</th>
+                <th class="col-3">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -42,12 +41,12 @@
                         {{ $facility->title }}
                     </strong>
                 </td>
-                <td><code style="font-size: 0.85em;">{{ $facility->slug }}</code></td>
                 <td>
                     @if($facility->banner)
-                        <a href="{{ asset('storage/' . $facility->banner) }}" target="_blank" class="btn btn-xs btn-outline-info" title="Lihat banner">
-                            <i class="fas fa-image"></i>
-                        </a>
+                        <img src="{{ asset('storage/' . $facility->banner) }}" 
+                            alt="banner"
+                            style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer;"
+                            onclick="window.open('{{ asset('storage/' . $facility->banner) }}', '_blank')">
                     @else
                         <span class="badge bg-warning">Belum ada</span>
                     @endif
@@ -63,19 +62,21 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('admin.facilities.edit', $facility) }}" class="btn btn-sm btn-primary" title="Edit">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <a href="{{ route('admin.facilities.items', $facility) }}" class="btn btn-sm btn-info" title="Kelola Items">
-                        <i class="fas fa-list"></i> Items
-                    </a>
-                    <form action="{{ route('admin.facilities.destroy', $facility) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus fasilitas ini?')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('admin.facilities.edit', $facility) }}" class="btn btn-sm btn-primary" title="Edit">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="{{ route('admin.facilities.items', $facility) }}" class="btn btn-sm btn-info" title="Kelola Items">
+                            <i class="fas fa-list"></i> Items
+                        </a>
+                        <form action="{{ route('admin.facilities.destroy', $facility) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus fasilitas ini?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             @empty

@@ -11,10 +11,11 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table">
+    <table class="table w-100">
         <thead>
             <tr>
-                <th style="width: 100px;">Gambar</th>
+                <th class="col-1">Urutan</th>
+                <th class="col-2">Gambar</th>
                 <th>Judul</th>
                 <th>Subtitle</th>
                 <th>Status</th>
@@ -24,6 +25,7 @@
         <tbody>
             @forelse($sliders as $slider)
             <tr>
+                <td class="text-center">{{ $slider->order }}</td>
                 <td>
                     @if($slider->image)
                         <img src="{{ Storage::url($slider->image) }}" alt="Slider" style="width: 100px; height: 60px; object-fit: cover; border-radius: 4px;">
@@ -37,21 +39,23 @@
                     @if($slider->is_active)
                         <span class="badge bg-success">Aktif</span>
                     @else
-                        <span class="badge bg-secondary">Tidak Aktif</span>
+                        <span class="badge bg-secondary">Nonaktif</span>
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('admin.sliders.edit', $slider) }}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <form action="{{ route('admin.sliders.destroy', $slider) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin?')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('admin.sliders.edit', $slider) }}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('admin.sliders.destroy', $slider) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </div>
             </tr>
             @empty
             <tr>
