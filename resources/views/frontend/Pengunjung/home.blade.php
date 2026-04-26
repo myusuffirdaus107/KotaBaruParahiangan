@@ -249,7 +249,7 @@
             <x-frontend.section-header
                 icon="fas fa-home"
                 label="Hunian Kami"
-                title="Hunian <span>Unggulan</span>"
+                title="Hunian <span>Pilihan</span> Kami"
             />
             <a href="{{ route('properties.hunian') }}" class="see-all">
                 Lihat Lebih Banyak <i class="fas fa-arrow-up-right-from-square ms-1"></i>
