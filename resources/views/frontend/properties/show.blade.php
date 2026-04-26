@@ -77,7 +77,7 @@ function formatDescription(string $text): string {
         <div class="sec">
             <div class="sec-label">Tentang Properti</div>
             <h2>Tatar {{ $property->title }}</h2>
-            <div class="prop-description">{!! formatDescription($property->description ?? '') !!}</div>
+            <div class="prop-description">{!! $property->description ?? '' !!}</div>
         </div>
 
         {{-- Spesifikasi --}}

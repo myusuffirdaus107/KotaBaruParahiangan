@@ -168,6 +168,45 @@
     margin-bottom: 4px;
 }
 
+/* Styling untuk konten Quill di halaman show */
+.prop-description ol,
+.prop-description ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.prop-description ol {
+    list-style-type: decimal;
+}
+
+.prop-description ul {
+    list-style-type: disc;
+}
+
+.prop-description li {
+    margin-bottom: 0.25rem;
+    line-height: 1.6;
+}
+
+.prop-description p {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+}
+
+.prop-description h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.prop-description h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
 /* SPECS */
 .specs-grid {
     display: grid;

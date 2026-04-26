@@ -10,7 +10,7 @@
 <div class="wa-popup" id="waPopup">
     <div class="wa-head">
         <div class="ic"><i class="fab fa-whatsapp"></i></div>
-        <p>Selamat Datang!<br>Hubungi kami via WhatsApp</p>
+        <p>Hubungi kami via WhatsApp</p>
         <button class="wa-close-btn" id="waClose"><i class="fas fa-times"></i></button>
     </div>
     <div class="wa-contacts">

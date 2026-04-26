@@ -106,19 +106,15 @@
                 <label for="description" class="form-label">
                     Deskripsi Lengkap
                 </label>
-                <small class="d-block text-muted mb-1">
-                    Baris kosong = paragraf baru<br> Awali baris dengan <code>-</code> atau <code>•</code> untuk bullet point<br>
-                    Contoh: <code>- Lokasi strategis</code>
-                </small>
-                <textarea
-                    class="form-control @error('description') is-invalid @enderror"
-                    id="description"
-                    name="description"
-                    rows="10"
-                    placeholder="Contoh:&#10;Properti ini terletak di kawasan premium.&#10;&#10;Keunggulan:&#10;- Lokasi strategis&#10;- Desain modern&#10;- Akses mudah"
-                >{{ old('description', $property->description ?? '') }}</textarea>
+
+                {{-- Hidden input yang dikirim ke server --}}
+                <input type="hidden" name="description" id="description-input">
+
+                {{-- Quill Editor Container --}}
+                <div id="quill-editor" style="height: 300px; border-radius: 0 0 4px 4px;"></div>
+
                 @error('description')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="text-danger small mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -268,29 +264,92 @@
 
 @section('scripts')
 <script>
+// Muat Quill secara dinamis, baru inisialisasi setelah benar-benar siap
+(function() {
+    // Load CSS
+    const link = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.href = 'https://cdn.quilljs.com/1.3.7/quill.snow.css';
+    document.head.appendChild(link);
+
+    // Load JS
+    const script = document.createElement('script');
+    script.src = 'https://cdn.quilljs.com/1.3.7/quill.min.js';
+    script.onload = function () { initQuill(); };
+    document.head.appendChild(script);
+})();
+
+function initQuill() {
+    const quill = new Quill('#quill-editor', {
+        theme: 'snow',
+        placeholder: 'Tulis deskripsi properti di sini...',
+        modules: {
+            toolbar: [
+                [{ header: [2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['link'],
+                ['clean'],
+            ],
+        },
+    });
+
+    const hiddenInput = document.getElementById('description-input');
+
+    // ── Isi nilai awal ke editor ──────────────────────────────────────────
+    const oldValue = {!! json_encode(old('description', $property->description ?? '')) !!};
+
+    if (oldValue && oldValue.trim() !== '') {
+        const isHtml = /<[a-z][\s\S]*>/i.test(oldValue);
+        if (isHtml) {
+            quill.clipboard.dangerouslyPasteHTML(oldValue);
+        } else {
+            const asHtml = oldValue
+                .split(/\n\n+/)
+                .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+            quill.clipboard.dangerouslyPasteHTML(asHtml);
+        }
+        // ✅ Langsung sync ke hidden input setelah set nilai awal
+        hiddenInput.value = quill.root.innerHTML;
+    }
+
+    // ✅ Sync realtime setiap kali konten Quill berubah
+    // Ini solusi utama — tidak bergantung pada event submit sama sekali
+    quill.on('text-change', function () {
+        const html = quill.root.innerHTML;
+        hiddenInput.value = (html === '<p><br></p>' || html.trim() === '') ? '' : html;
+    });
+
+    // ✅ Guard tambahan saat submit — double safety
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function (e) {
+        const html = quill.root.innerHTML;
+        hiddenInput.value = (html === '<p><br></p>' || html.trim() === '') ? '' : html;
+    }, true); // true = capture phase, lebih awal dari bubble
+
+    // ── Slug Auto-generate ────────────────────────────────────────────────
     const titleInput = document.getElementById('title');
     const slugField  = document.getElementById('slug');
 
     titleInput.addEventListener('input', function () {
-        // Jangan overwrite jika slug sudah diisi manual
         if (slugField.value.trim() !== '') return;
-
         slugField.value = this.value
             .toLowerCase()
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')  // hapus aksen
-            .replace(/[^a-z0-9\s-]/g, '')     // hapus karakter spesial
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
             .trim()
-            .replace(/\s+/g, '-')             // spasi → tanda hubung
-            .replace(/-+/g, '-');             // hapus tanda hubung ganda
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
     });
 
-    // Double-click slug untuk reset agar bisa di-generate ulang
     slugField.addEventListener('dblclick', function () {
         if (confirm('Reset slug? Slug akan di-generate ulang dari judul saat Anda mengetik.')) {
             this.value = '';
             titleInput.dispatchEvent(new Event('input'));
         }
     });
+}
 </script>
 @endsection

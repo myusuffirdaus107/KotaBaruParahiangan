@@ -88,56 +88,83 @@
 </div>
 
 {{-- FEATURED LAUNCHING --}}
-@if($launchings->count() > 0)
-@php $featured = $launchings->sortByDesc('launch_date')->first(); @endphp
+@if($hunianUnggulan && $hunianUnggulan->property_name)
+@php $hu = $hunianUnggulan; $benCount = count($hu->benefits_list); @endphp
 <div class="fc-section">
     <div class="container-lg px-3 px-lg-5">
         <x-frontend.section-header
             icon="fas fa-star"
-            label="New Launching"
+            label="{{ $hu->badge_label }}"
             title="Hunian <span style='color:var(--gold)'>Unggulan</span> Kami"
             :dark="true"
         />
         <div class="fc-card">
+            {{-- KIRI: Foto --}}
             <div class="fc-left">
-                <img src="{{ $featured->image ? asset('storage/'.$featured->image) : 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&h=700&fit=crop' }}"
-                     alt="{{ $featured->title }}">
+                <img src="{{ $hu->image ? asset('storage/'.$hu->image) : 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=900&h=700&fit=crop' }}"
+                     alt="{{ $hu->property_name }}">
                 <div class="fc-left-overlay"></div>
                 <div class="fc-img-footer">
+                    @if($hu->location)
                     <div class="fc-img-badge">
                         <i class="fas fa-map-marker-alt fa-xs"></i>
-                        {{ $featured->location ?? 'Jl. Ahmad Yani, Kotabaru' }}
+                        {{ $hu->location }}
                     </div>
-                    <h2 class="fc-img-title">KOTA BARU PARAHYANGAN</h2>
-                    <p class="fc-img-sub">{{ $featured->title }}</p>
+                    @endif
+                    <h2 class="fc-img-title">{{ $hu->property_name }}</h2>
+                    @if($hu->tatar_name)
+                    <p class="fc-img-sub">{{ $hu->tatar_name }}</p>
+                    @endif
                 </div>
             </div>
+ 
+            {{-- KANAN: Info --}}
             <div class="fc-right">
                 <div>
-                    <div class="fc-new-badge">✦ New Launching</div>
+                    <div class="fc-new-badge">✦ {{ $hu->badge_label }}</div>
+ 
+                    @if($hu->cicilan_harga)
                     <div class="fc-price-label">Cicilan Mulai</div>
                     <div class="fc-price-row">
                         <span class="fc-price-from">Dari</span>
-                        <span class="fc-price-num">16</span>
-                        <div class="fc-price-unit"><span>Juta / bulan</span></div>
+                        <span class="fc-price-num">{{ $hu->cicilan_format }}</span>
+                        <div class="fc-price-unit">
+                            <span>{{ $hu->cicilan_unit }}</span>
+                        </div>
                     </div>
-                    <p class="fc-price-note">*Harga dapat berubah sewaktu-waktu</p>
+                    @if($hu->price_note)
+                    <p class="fc-price-note">{{ $hu->price_note }}</p>
+                    @endif
+                    @endif
+ 
+                    @if($benCount > 0)
                     <div class="fc-divider"></div>
-                    <div class="fc-benefits-label">Bonus & Keuntungan</div>
-                    <div class="fc-benefits">
-                        @foreach(['Sport Club 1 Tahun','CCTV System','Yoga Voucher 5Jt','Smart Door Lock'] as $b)
+                    <div class="fc-benefits-label">Bonus &amp; Keuntungan</div>
+                    <div class="fc-benefits fc-benefits--{{ $benCount }}">
+                        @foreach($hu->benefits_list as $b)
                         <div class="fc-benefit">
-                            <div class="bt">Free</div>
-                            <div class="bv">{{ $b }}</div>
+                            <div class="bt">{{ $b['title'] ?? 'Free' }}</div>
+                            <div class="bv">{{ $b['value'] ?? '' }}</div>
                         </div>
                         @endforeach
                     </div>
+                    @endif
                 </div>
-                <x-frontend.btn-gold
-                    :href="route('brochure')"
-                    icon="fas fa-file-pdf"
-                    label="Download E-Brochure"
-                />
+ 
+                {{-- Tombol --}}
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    <x-frontend.btn-gold
+                        :href="route('brochure')"
+                        icon="fas fa-file-pdf"
+                        label="Download E-Brochure"
+                    />
+                    <a href="{{ route('properties.hunian') }}"
+                       style="display:inline-flex;align-items:center;justify-content:center;gap:9px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:#fff;font-weight:600;font-size:0.82rem;letter-spacing:0.04em;text-transform:uppercase;padding:13px 28px;border-radius:100px;text-decoration:none;transition:0.2s;"
+                       onmouseover="this.style.background='rgba(255,255,255,0.15)'"
+                       onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                        <i class="fas fa-compass"></i> Jelajahi Properti
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -150,8 +177,7 @@
     <div class="container-lg px-3 px-lg-5">
         <div class="benefit-grid">
             <div class="benefit-img-wrap">
-                <img src="{{ $featured->image ? asset('storage/'.$featured->image) : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&h=700&fit=crop' }}"
-                     alt="Expansive Living">
+                <img src="{{ asset('images/2.png') }}" alt="Expanse Living">
                 <div class="soft-dp-badge"><i class="fas fa-check-circle"></i> Soft DP Tersedia</div>
             </div>
             <div>

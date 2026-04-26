@@ -36,15 +36,20 @@
         <div class="lc-grid">
             @forelse($launchings as $l)
             <div class="lc-card"
-                 data-status="{{ $l->status }}"
-                 data-title="{{ $l->title }}"
-                 data-desc="{{ $l->description }}"
-                 data-image="{{ $l->image ? asset('storage/'.$l->image) : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop' }}"
-                 data-location="{{ $l->location }}"
-                 data-developer="{{ $l->developer }}"
-                 data-date="{{ $l->launch_date ? \Carbon\Carbon::parse($l->launch_date)->format('d M Y') : '-' }}"
-                 data-status-label="{{ $l->status === 'active' ? 'Tersedia' : 'Coming Soon' }}"
-                 onclick="openModal(this)">
+                data-status="{{ $l->status }}"
+                data-title="{{ $l->title }}"
+                data-desc-id="desc-{{ $l->id }}"
+                data-image="{{ $l->image ? asset('storage/'.$l->image) : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop' }}"
+                data-location="{{ $l->location }}"
+                data-developer="{{ $l->developer }}"
+                data-date="{{ $l->launch_date ? \Carbon\Carbon::parse($l->launch_date)->format('d M Y') : '-' }}"
+                data-status-label="{{ $l->status === 'active' ? 'Tersedia' : 'Coming Soon' }}"
+                onclick="openModal(this)">
+
+                {{-- Simpan HTML deskripsi di template tersembunyi --}}
+                <template id="desc-{{ $l->id }}">
+                    {!! $l->description ?? '' !!}
+                </template>
                 <div class="lc-card-img">
                     <img src="{{ $l->image ? asset('storage/'.$l->image) : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop' }}"
                          alt="{{ $l->title }}" loading="lazy">

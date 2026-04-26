@@ -340,53 +340,56 @@
 
 /*ESPONSIVE */
 @media (max-width: 900px) {
-    .fh-hero-wrap {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .fh-hero {
-        height: 65vh;
-        min-height: 420px;
-    }
-    .fh-body {
-        grid-template-columns: 1fr;
-        padding: 0 24px 52px;
-        gap: 0;
-        position: relative;
-    }
-    .fh-icon-block {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 72px;
-        height: 72px;
-        font-size: 1.9rem;
-        border-radius: 18px;
-        z-index: 4;
-        align-self: auto;
-        margin-bottom: 0;
-    }
     .fh-grid {
         grid-template-columns: 1fr 1fr;
     }
-    .fh-card.span-3 {
-        grid-column: span 2;
-    }
+
+    /* Reset semua span — di tablet semua card sama rata */
+    .fh-card.span-3,
     .fh-card.span-2 {
-        grid-column: span 2;
+        grid-column: span 1;
     }
+
+    .fh-card.span-3 .fh-card-img,
+    .fh-card.span-2 .fh-card-img {
+        height: 200px;
+    }
+
     .fh-items {
         padding: 60px 0;
     }
 }
+
 @media (max-width: 560px) {
+    /* Mobile kecil — tetap 2 kolom, tapi image lebih pendek */
     .fh-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
     }
+
+    .fh-card-img {
+        height: 140px;
+    }
+
+    .fh-card-body {
+        padding: 14px;
+    }
+
+    .fh-card-body h3 {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+    }
+
+    .fh-card-body p {
+        font-size: 0.76rem;
+        line-height: 1.6;
+    }
+
     .fh-hero {
         height: 60vh;
         min-height: 360px;
     }
+
     .fh-body {
         padding: 0 20px 44px;
     }

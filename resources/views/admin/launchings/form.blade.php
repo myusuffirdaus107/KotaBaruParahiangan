@@ -176,19 +176,18 @@
             </div>
 
             <div class="form-group mb-4">
-                <label for="description" class="form-label">Deskripsi</label>
-                <textarea
-                    class="form-control @error('description') is-invalid @enderror"
-                    id="description"
-                    name="description"
-                    rows="5"
-                    placeholder="Tuliskan deskripsi lengkap tentang launching campaign..."
-                    style="border-radius: 6px; border: 1px solid #e2e8f0;"
-                >{{ old('description', $launching->description ?? '') }}</textarea>
+                <label class="form-label">Deskripsi</label>
+
+                {{-- Hidden input yang dikirim ke server --}}
+                <input type="hidden" name="description" id="description-input">
+
+                {{-- Quill Editor --}}
+                <div id="quill-editor" style="height: 250px; border-radius: 0 0 6px 6px;"></div>
+
                 @error('description')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                    <div class="text-danger small mt-1">{{ $message }}</div>
                 @enderror
-                <small class="text-muted d-block mt-1">Gunakan beberapa paragraf untuk menjelaskan launching ini</small>
+                <small class="text-muted d-block mt-1">Gunakan toolbar untuk memformat teks</small>
             </div>
 
             <div style="display: flex; gap: 10px; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
@@ -203,4 +202,89 @@
         </form>
     </div>
 </div>
+
+@section('scripts')
+<script>
+(function () {
+    const link = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.href = 'https://cdn.quilljs.com/1.3.7/quill.snow.css';
+    document.head.appendChild(link);
+
+    const script   = document.createElement('script');
+    script.src     = 'https://cdn.quilljs.com/1.3.7/quill.min.js';
+    script.onload  = initQuill;
+    document.head.appendChild(script);
+})();
+
+function initQuill() {
+    const quill = new Quill('#quill-editor', {
+        theme: 'snow',
+        placeholder: 'Tuliskan deskripsi lengkap tentang launching campaign...',
+        modules: {
+            toolbar: [
+                [{ header: [2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['link'],
+                ['clean'],
+            ],
+        },
+    });
+
+    const hiddenInput = document.getElementById('description-input');
+    const oldValue    = {!! json_encode(old('description', $launching->description ?? '')) !!};
+
+    // Isi nilai awal
+    if (oldValue && oldValue.trim() !== '') {
+        const isHtml = /<[a-z][\s\S]*>/i.test(oldValue);
+        if (isHtml) {
+            quill.clipboard.dangerouslyPasteHTML(oldValue);
+        } else {
+            const asHtml = oldValue
+                .split(/\n\n+/)
+                .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+                .join('');
+            quill.clipboard.dangerouslyPasteHTML(asHtml);
+        }
+        hiddenInput.value = quill.root.innerHTML;
+    }
+
+    // Sync realtime
+    quill.on('text-change', function () {
+        const html = quill.root.innerHTML;
+        hiddenInput.value = (html === '<p><br></p>' || html.trim() === '') ? '' : html;
+    });
+
+    // Guard submit
+    document.querySelector('form').addEventListener('submit', function () {
+        const html = quill.root.innerHTML;
+        hiddenInput.value = (html === '<p><br></p>' || html.trim() === '') ? '' : html;
+    }, true);
+
+    // Slug auto-generate
+    const titleInput = document.getElementById('title');
+    const slugField  = document.getElementById('slug');
+
+    titleInput.addEventListener('input', function () {
+        if (slugField.value.trim() !== '') return;
+        slugField.value = this.value
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    });
+
+    slugField.addEventListener('dblclick', function () {
+        if (confirm('Reset slug?')) {
+            this.value = '';
+            titleInput.dispatchEvent(new Event('input'));
+        }
+    });
+}
+</script>
+@endsection
 @endsection

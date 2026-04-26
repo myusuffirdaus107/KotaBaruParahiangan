@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\HunianUnggulanController;
 
 /**
  * FRONTEND ROUTES (Public routes)
@@ -93,6 +94,11 @@ Route::middleware(['auth.admin'])->prefix('admin')->name('admin.')->group(functi
     Route::get('about', [\App\Http\Controllers\Admin\AboutController::class, 'show'])->name('about.show');
     Route::get('about/edit', [\App\Http\Controllers\Admin\AboutController::class, 'edit'])->name('about.edit');
     Route::put('about', [\App\Http\Controllers\Admin\AboutController::class, 'update'])->name('about.update');
+
+    //Hunian Unggulan
+    Route::get('hunian-unggulan',        [HunianUnggulanController::class, 'show'])  ->name('hunian-unggulan.show');
+    Route::get('hunian-unggulan/edit',   [HunianUnggulanController::class, 'edit'])  ->name('hunian-unggulan.edit');
+    Route::put('hunian-unggulan',        [HunianUnggulanController::class, 'update'])->name('hunian-unggulan.update');
 });
 
 

@@ -259,6 +259,7 @@
         rgba(9, 21, 46, 0.1) 100%
     );
 }
+
 .fc-img-footer {
     position: absolute;
     bottom: 0;
@@ -399,6 +400,22 @@
     color: rgba(255, 255, 255, 0.72);
     font-weight: 500;
     line-height: 1.3;
+}
+
+.fc-benefits--1 {
+    grid-template-columns: 1fr;
+}
+.fc-benefits--2 {
+    grid-template-columns: 1fr 1fr;
+}
+.fc-benefits--3 {
+    grid-template-columns: 1fr 1fr;
+}
+.fc-benefits--3 .fc-benefit:last-child {
+    grid-column: 1 / -1;
+}
+.fc-benefits--4 {
+    grid-template-columns: 1fr 1fr;
 }
 
 /* EXPANSIVE LIVING / BENEFITS */

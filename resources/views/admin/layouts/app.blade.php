@@ -60,6 +60,12 @@
             </a>
         </div>
         <div class="nav-item">
+            <a href="{{ route('admin.hunian-unggulan.show') }}"
+            class="nav-link-item {{ Route::is('admin.hunian-unggulan.*') ? 'active' : '' }}">
+                <span class="nav-icon"><i class="fas fa-star"></i></span> Hunian Unggulan
+            </a>
+        </div>
+        <div class="nav-item">
             <a href="{{ route('admin.inquiries.index') }}" class="nav-link-item {{ Route::is('admin.inquiries.*') ? 'active' : '' }}">
                 <span class="nav-icon"><i class="fas fa-envelope"></i></span> Inquiries
             </a>

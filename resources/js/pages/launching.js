@@ -5,8 +5,17 @@ window.openModal = function (card) {
 
     document.getElementById("modalImage").src = card.dataset.image;
     document.getElementById("modalImgTitle").textContent = card.dataset.title;
-    document.getElementById("modalDesc").textContent =
-        card.dataset.desc || "Tidak ada deskripsi.";
+    const descId = card.dataset.descId;
+    const template = document.getElementById(descId);
+    const modalDesc = document.getElementById("modalDesc");
+
+    if (template) {
+        modalDesc.innerHTML =
+            template.innerHTML ||
+            '<em style="color:#aaa">Tidak ada deskripsi</em>';
+    } else {
+        modalDesc.textContent = "";
+    }
     document.getElementById("modalLocation").textContent =
         card.dataset.location || "-";
     document.getElementById("modalDeveloper").textContent =

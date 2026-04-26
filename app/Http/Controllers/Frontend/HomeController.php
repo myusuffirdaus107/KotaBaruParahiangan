@@ -7,6 +7,7 @@ use App\Models\Slider;
 use App\Models\Launching;
 use App\Models\Property;
 use App\Models\Category;
+use App\Models\HunianUnggulan;
 
 class HomeController extends Controller
 {
@@ -28,8 +29,12 @@ class HomeController extends Controller
         ->limit(3)
         ->get();
 
+        $hunianUnggulan = HunianUnggulan::getInstance();
+
     return view('frontend.pengunjung.home', compact(
-        'sliders', 'launchings', 'featuredProperties'
+        'sliders', 'launchings', 'featuredProperties', 'hunianUnggulan'
+
+        
     ));
     }
 

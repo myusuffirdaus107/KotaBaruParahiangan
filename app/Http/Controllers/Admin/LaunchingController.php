@@ -51,6 +51,17 @@ class LaunchingController extends Controller
             'status' => 'required|in:coming_soon,active',
         ]);
 
+        if (!empty($validated['description'])) {
+            $validated['description'] = preg_replace(
+                '/<(script|iframe|object|embed|form)[^>]*>.*?<\/\1>/is', '', $validated['description']
+            );
+            $validated['description'] = preg_replace(
+                '/\son\w+\s*=\s*["\'][^"\']*["\']/i', '', $validated['description']
+            );
+        } else {
+            $validated['description'] = null;
+        }
+
         // Handle image upload
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('launchings', 'public');
@@ -87,6 +98,17 @@ class LaunchingController extends Controller
             'status' => 'required|in:coming_soon,active',
         ]);
 
+        if (!empty($validated['description'])) {
+            $validated['description'] = preg_replace(
+                '/<(script|iframe|object|embed|form)[^>]*>.*?<\/\1>/is', '', $validated['description']
+            );
+            $validated['description'] = preg_replace(
+                '/\son\w+\s*=\s*["\'][^"\']*["\']/i', '', $validated['description']
+            );
+        } else {
+            $validated['description'] = null;
+        }
+
         // Handle image upload
         if ($request->hasFile('image')) {
             if ($launching->image && Storage::disk('public')->exists($launching->image)) {
@@ -95,6 +117,7 @@ class LaunchingController extends Controller
             $imagePath = $request->file('image')->store('launchings', 'public');
             $validated['image'] = $imagePath;
         }
+        
 
         $launching->update($validated);
 
