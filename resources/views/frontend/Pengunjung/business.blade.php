@@ -162,20 +162,28 @@
          data-status="{{ $property->status }}"
          data-title="{{ strtolower($property->title) }}"
          data-location="{{ strtolower($property->location) }}">
-        <div class="bp-item-visual">
-            <img src="{{ $property->images->count() ? asset('storage/'.$property->images->first()->image_path) : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=560&fit=crop' }}"
-                 alt="{{ $property->title }}" loading="lazy">
-            <div class="vi-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
-            <div class="vi-status {{ $property->status === 'available' ? 'avail' : 'sold' }}">
-                {{ $property->status === 'available' ? 'Tersedia' : 'Sold Out' }}
-            </div>
-        </div>
+        @php $imgSrc = $property->images->count()
+    ? asset('storage/'.$property->images->first()->image_path)
+    : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=560&fit=crop';
+@endphp
+
+<div class="bp-item-visual">
+    {{-- Blur backdrop sebagai div terpisah (bukan ::before) --}}
+    <div class="vi-blur-bg" style="background-image: url('{{ $imgSrc }}')"></div>
+
+    <img src="{{ $imgSrc }}" alt="{{ $property->title }}" loading="lazy">
+
+    <div class="vi-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
+    <div class="vi-status {{ $property->status === 'available' ? 'avail' : 'sold' }}">
+        {{ $property->status === 'available' ? 'Tersedia' : 'Sold Out' }}
+    </div>
+</div>
         <div class="bp-item-body">
             <div class="bp-item-cat">{{ $property->category->name ?? 'Business' }}</div>
             <h2 class="bp-item-title" data-raw="{{ $property->title }}">{{ $property->title }}</h2>
             <div class="bp-item-loc"><i class="fas fa-map-marker-alt"></i> {{ $property->location }}</div>
             <div class="bp-item-divider"></div>
-            <p class="bp-item-desc">{{ Str::limit($property->description, 240) }}</p>
+            <p class="bp-item-desc">{{ Str::limit(strip_tags($property->description), 240) }}</p>
             <div class="bp-item-actions">
                 <button class="btn-bp-primary" onclick="openBpModal({{ $property->id }})">
                     <i class="fas fa-eye"></i> Lihat Detail

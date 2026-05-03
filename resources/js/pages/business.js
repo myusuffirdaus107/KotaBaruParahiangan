@@ -10,21 +10,24 @@ function escapeRe(s) {
 // ── Format deskripsi jadi paragraf ──
 function formatDesc(text) {
     if (!text) return "<p>-</p>";
+    
+    // Jika sudah berisi HTML tags dari Quill.js, langsung return
+    if (/<[a-z][\s\S]*>/i.test(text)) {
+        return text;
+    }
+    
+    // Fallback: plain text → format jadi paragraf
     return text
-        .split(/\n\s*\n/) // pisah per paragraf (baris kosong)
-        .map((para) => para.trim())
-        .filter((para) => para.length > 0)
-        .map((para) => {
-            // cek apakah paragraph ini adalah bullet list
+        .split(/\n\s*\n/)
+        .map(para => para.trim())
+        .filter(para => para.length > 0)
+        .map(para => {
             const lines = para.split("\n");
-            const isList = lines.every((l) => /^[-•]\s/.test(l.trim()));
+            const isList = lines.every(l => /^[-•]\s/.test(l.trim()));
             if (isList) {
-                const items = lines
-                    .map((l) => `<li>${l.replace(/^[-•]\s/, "").trim()}</li>`)
-                    .join("");
+                const items = lines.map(l => `<li>${l.replace(/^[-•]\s/, "").trim()}</li>`).join("");
                 return `<ul>${items}</ul>`;
             }
-            // paragraf biasa — ganti newline tunggal jadi <br>
             return `<p>${lines.join("<br>")}</p>`;
         })
         .join("");
@@ -150,14 +153,22 @@ window.openBpModal = function (id) {
     const p = window.bpProps?.find((x) => x.id == id);
     if (!p) return;
 
-    const slides = p.images.length
-        ? p.images
-              .map(
-                  (img, i) =>
-                      `<div class="swiper-slide"><img src="/storage/${img}" alt="${p.title} ${i + 1}"></div>`,
-              )
-              .join("")
-        : `<div class="swiper-slide"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&h=400&fit=crop" alt="${p.title}"></div>`;
+// GANTI bagian slides di openBpModal
+const slides = p.images.length
+    ? p.images.map((img, i) => {
+        const src = `/storage/${img}`;
+        return `<div class="swiper-slide">
+            <div class="sw-blur-bg" style="background-image:url('${src}')"></div>
+            <img src="${src}" alt="${p.title} ${i + 1}" loading="lazy">
+        </div>`;
+    }).join("")
+    : (() => {
+        const src = `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&h=500&fit=crop`;
+        return `<div class="swiper-slide">
+            <div class="sw-blur-bg" style="background-image:url('${src}')"></div>
+            <img src="${src}" alt="${p.title}">
+        </div>`;
+    })();
 
     document.getElementById("bpSwiperWrapper").innerHTML = slides;
 
