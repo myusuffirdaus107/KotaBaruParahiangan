@@ -6,6 +6,8 @@ use App\Http\Controllers\Frontend\PropertyController;
 use App\Http\Controllers\Frontend\InquiryController as FrontendInquiryController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\FacilityController;
+use App\Models\Property;
+use App\Models\Facility;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
@@ -44,6 +46,15 @@ Route::get('/brochure', [HomeController::class, 'brochure'])->name('brochure');
 
 // Brochure download
 Route::get('/brochure/download/{property:slug}', [PropertyController::class, 'downloadBrochure'])->name('brochure.download');
+
+// Sitemap for search engines
+Route::get('/sitemap.xml', function () {
+    $properties = Property::available()->get();
+    $facilities = Facility::active()->get();
+
+    return response()->view('sitemap', compact('properties', 'facilities'))
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
 
 /**
  * ADMIN ROUTES

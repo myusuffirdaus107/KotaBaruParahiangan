@@ -3,7 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Properti Kotabaru - Rumah Impian Anda')</title>
+    @php
+        $metaTitle = trim($__env->yieldContent('title', 'Properti Kotabaru - Rumah Impian Anda'));
+        $metaDescription = trim($__env->yieldContent('meta_description', 'Kawasan kota mandiri berwawasan pendidikan — menghadirkan hunian berkualitas dan lingkungan terpadu di Parahyangan.'));
+        $metaImage = trim($__env->yieldContent('meta_image', asset('images/logo_kotabaru.png')));
+        $canonicalUrl = url()->current();
+    @endphp
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta name="author" content="Properti Kotabaru">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Properti Kotabaru">
+    <meta property="og:title" content="{{ $metaTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ $metaImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $metaTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $metaImage }}">
+    @stack('page-meta')
     <link rel="icon" href="{{ asset('images/logo_kbp.png') }}">
 
     {{-- Bootstrap 5 --}}

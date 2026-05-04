@@ -1,5 +1,11 @@
 @extends('frontend.layouts.app')
+@php
+    use Illuminate\Support\Str;
+    $facilityImage = $facility->banner ? asset('storage/' . $facility->banner) : asset('images/logo_kotabaru.png');
+@endphp
 @section('title', $pageTitle)
+@section('meta_description', Str::limit(strip_tags($facility->description ?? 'Temukan fasilitas publik terbaik yang mendukung kenyamanan dan gaya hidup di Kota Baru Parahyangan.'), 160))
+@section('meta_image', $facilityImage)
 
 @push('page-styles')
     @vite(['resources/css/pages/facility.css'])

@@ -1,5 +1,11 @@
 @extends('frontend.layouts.app')
+@php
+    use Illuminate\Support\Str;
+    $propertyImage = $property->images->first()?->image_path;
+@endphp
 @section('title', $property->title . ' - ' . $property->category->name)
+@section('meta_description', Str::limit(strip_tags($property->description ?? 'Temukan hunian terbaik dengan fasilitas lengkap di Kota Baru Parahyangan.'), 160))
+@section('meta_image', $propertyImage ? asset('storage/' . $propertyImage) : asset('images/logo_kotabaru.png'))
 
 @push('page-styles')
     @vite(['resources/css/pages/show.css'])

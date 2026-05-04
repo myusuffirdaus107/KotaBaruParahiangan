@@ -17,7 +17,7 @@ export default defineConfig({
                 "resources/css/admin.css",
                 // JS
                 "resources/js/app.js",
-                "resources/js/admingit co.js",
+                "resources/js/admin.js",
                 "resources/js/pages/home.js",
                 "resources/js/pages/business.js",
                 "resources/js/pages/show.js",
